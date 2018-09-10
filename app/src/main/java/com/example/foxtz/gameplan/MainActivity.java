@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
         final EditText emailField = findViewById(R.id.emailID);
         final EditText passwordField = findViewById(R.id.passwordID);
 
-//        email = emailField.getText().toString();
-//        password = passwordField.getText().toString();
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
