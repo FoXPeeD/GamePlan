@@ -13,6 +13,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class PostsActivity extends AppCompatActivity {
 
@@ -62,6 +64,10 @@ public class PostsActivity extends AppCompatActivity {
 //        final String email = user.getEmail();
 //        Toast.makeText(PostsActivity.this, "email is " + email,
 //                Toast.LENGTH_SHORT).show();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users/"+user.getUid());
+        DatabaseReference myName = myRef.child("name");
+        myName.setValue("Ali G");
     }
 
 }
