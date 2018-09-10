@@ -17,7 +17,8 @@ import com.google.firebase.auth.GetTokenResult;
 public class PostsActivity extends AppCompatActivity {
 
 
-    private FirebaseAuth mAuth;
+//    private FirebaseAuth mAuth;
+    FirebaseUser user;
 
     private TextView mTextMessage;
 
@@ -50,16 +51,17 @@ public class PostsActivity extends AppCompatActivity {
         mTextMessage.setText("...NOT!");
 
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        final String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        Toast.makeText(PostsActivity.this, "email is " + email,
-                Toast.LENGTH_SHORT).show();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+//        final String email = user.getEmail();
+//        Toast.makeText(PostsActivity.this, "email is " + email,
+//                Toast.LENGTH_SHORT).show();
     }
 
 }
