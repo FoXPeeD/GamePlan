@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "596775327433",
+    "firebase_url": "https://gameplan-1312c.firebaseio.com",
+    "project_id": "gameplan-1312c",
+    "storage_bucket": "gameplan-1312c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596775327433:android:0fce62301976f72f",
+        "android_client_info": {
+          "package_name": "com.example.foxtz.gameplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596775327433-27bgu6cd5b6l7iivgms4efpsvine785h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foxtz.gameplan",
+            "certificate_hash": "8d5144be4fa863977df330aa1a099771608f1a55"
+          }
+        },
+        {
+          "client_id": "596775327433-1f8cbkn7k9hatk7go8snjbg41vpr9vi2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLU1aFTqfyTwqrYlPHCGD4QDOoRQeNyhg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596775327433-1f8cbkn7k9hatk7go8snjbg41vpr9vi2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
