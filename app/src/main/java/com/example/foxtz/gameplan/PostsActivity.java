@@ -85,6 +85,7 @@ public class PostsActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("users/"+user.getUid());
         DatabaseReference myName = myRef.child("name");
         myName.setValue("Ali G");
+        getSupportActionBar().setTitle("Posts");
 
         myName.addValueEventListener(new ValueEventListener() {
             @Override
