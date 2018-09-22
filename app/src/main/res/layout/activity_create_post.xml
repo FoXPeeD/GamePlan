@@ -8,9 +8,9 @@
 
     <EditText
         android:id="@+id/desiredPlayersEditTxt"
-        android:layout_width="76dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="89dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="40dp"
         android:ems="10"
         android:hint="Desired"
         android:inputType="number"
@@ -30,9 +30,11 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="23dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
         android:text="Of"
-        app:layout_constraintTop_toTopOf="@+id/textView10"
-        tools:layout_editor_absoluteX="180dp" />
+        app:layout_constraintStart_toEndOf="@+id/currentPlayersEditTxt"
+        app:layout_constraintTop_toTopOf="@+id/textView10" />
 
     <Spinner
         android:id="@+id/citySpinner"
@@ -175,28 +177,13 @@
 
     <EditText
         android:id="@+id/currentPlayersEditTxt"
-        android:layout_width="76dp"
-        android:layout_height="28dp"
+        android:layout_width="87dp"
+        android:layout_height="43dp"
         android:ems="10"
         android:hint="Current"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/categorySpinner"
         app:layout_constraintTop_toTopOf="@+id/textView10" />
-
-    <EditText
-        android:id="@+id/descriptionEditTxt"
-        android:layout_width="364dp"
-        android:layout_height="160dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Write somthing about your game!"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <Button
         android:id="@+id/createButton"
@@ -205,11 +192,23 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="Create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionEditTxt" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="363dp"
+        android:layout_height="151dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/createButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
 </android.support.constraint.ConstraintLayout>
