@@ -83,7 +83,7 @@ public class createPost extends AppCompatActivity {
         monthsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthSpinner.setAdapter(monthsAdapter);
 
-        //day spinnr init
+        //day spinner init
         final Spinner daySpinner = findViewById(R.id.gameSpinner);
 
         ArrayAdapter<CharSequence> daysAdapter = ArrayAdapter.createFromResource(createPost.this,
