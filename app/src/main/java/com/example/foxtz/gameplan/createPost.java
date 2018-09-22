@@ -140,13 +140,15 @@ public class createPost extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String category = categorySpinner.getItemAtPosition(categorySpinner.getSelectedItemPosition()).toString();
+                String game = gameSpinner.getItemAtPosition(gameSpinner.getSelectedItemPosition()).toString();
 //                Toast.makeText(createPost.this, "category is " + category, Toast.LENGTH_SHORT).show();
                 String timeString = "once upon a time";
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference refTime = database.getReference("posts/"+timeString);
                 String postKey = refTime.push().getKey();
                 DatabaseReference refPost = refTime.child(postKey);
-                refPost.setValue("category",category);
+                refPost.child("category").setValue(category);
+                refPost.child("game").setValue(game);
             }
         });
     }
