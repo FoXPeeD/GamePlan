@@ -29,18 +29,10 @@ public class createPost extends AppCompatActivity {
                 R.array.ball_games_array, android.R.layout.simple_spinner_item);
         gameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gameSpinner.setAdapter(gameAdapter);
-//        gameSpinner.getSelectedView().setEnabled(false);
-//        gameSpinner.setEnabled(false);
-
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                gameSpinner.getSelectedView().setEnabled(true);
-//                gameSpinner.setEnabled(true);
-//                ArrayAdapter<CharSequence> gameAdapter = ArrayAdapter.createFromResource(createPost.this,
-//                        R.array.ball_games_array, android.R.layout.simple_spinner_item);
-
                 switch(position) {
                     case 0:
                         ArrayAdapter<CharSequence> gameBallAdapter = ArrayAdapter.createFromResource(createPost.this,
@@ -67,10 +59,6 @@ public class createPost extends AppCompatActivity {
                         gameSpinner.setAdapter(gameWorkoutAdapter);
                         break;
                 }
-
-
-//                gameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                gameSpinner.setAdapter(gameAdapter);
             }
 
             @Override
