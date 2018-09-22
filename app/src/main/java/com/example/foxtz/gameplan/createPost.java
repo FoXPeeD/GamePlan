@@ -101,25 +101,25 @@ public class createPost extends AppCompatActivity {
                     case 7:
                     case 9:
                     case 11:
-                        ArrayAdapter<CharSequence> daysAdapter = ArrayAdapter.createFromResource(createPost.this,
+                        ArrayAdapter<CharSequence> days31Adapter = ArrayAdapter.createFromResource(createPost.this,
                                 R.array.day_31_array, android.R.layout.simple_spinner_item);
-                        daysAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        daySpinner.setAdapter(daysAdapter);
+                        days31Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        daySpinner.setAdapter(days31Adapter);
                         break;
                     case 3:
                     case 5:
                     case 8:
                     case 10:
-                        ArrayAdapter<CharSequence> gameVideoAdapter = ArrayAdapter.createFromResource(createPost.this,
+                        ArrayAdapter<CharSequence> days30Adapter = ArrayAdapter.createFromResource(createPost.this,
                                 R.array.day_30_array, android.R.layout.simple_spinner_item);
-                        gameVideoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        gameSpinner.setAdapter(gameVideoAdapter);
+                        days30Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        daySpinner.setAdapter(days30Adapter);
                         break;
                     case 1:
-                        ArrayAdapter<CharSequence> gameBoardAdapter = ArrayAdapter.createFromResource(createPost.this,
+                        ArrayAdapter<CharSequence> days28Adapter = ArrayAdapter.createFromResource(createPost.this,
                                 R.array.day_28_array, android.R.layout.simple_spinner_item);
-                        gameBoardAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        gameSpinner.setAdapter(gameBoardAdapter);
+                        days28Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        daySpinner.setAdapter(days28Adapter);
                         break;
                 }
             }
