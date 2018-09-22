@@ -34,29 +34,30 @@ public class createPost extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 gameSpinner.getSelectedView().setEnabled(true);
                 gameSpinner.setEnabled(true);
-                ArrayAdapter<CharSequence> gameAdapter;
+                ArrayAdapter<CharSequence> gameAdapter = ArrayAdapter.createFromResource(createPost.this,
+                        R.array.ball_games_array, android.R.layout.simple_spinner_item);
 
-                switch(position) {
-                    case 0:
-                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
-                            R.array.ball_games_array, android.R.layout.simple_spinner_item);
-                        break;
-                    case 1:
-                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
-                            R.array.video_games_array, android.R.layout.simple_spinner_item);
-                        break;
-                    case 2:
-                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
-                            R.array.board_games_array, android.R.layout.simple_spinner_item);
-                        break;
-                    case 3:
-                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
-                            R.array.workout_array, android.R.layout.simple_spinner_item);
-                        break;
-                    default:
-                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
-                                R.array.ball_games_array, android.R.layout.simple_spinner_item);
-                }
+//                switch(position) {
+//                    case 0:
+//                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
+//                            R.array.ball_games_array, android.R.layout.simple_spinner_item);
+//                        break;
+//                    case 1:
+//                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
+//                            R.array.video_games_array, android.R.layout.simple_spinner_item);
+//                        break;
+//                    case 2:
+//                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
+//                            R.array.board_games_array, android.R.layout.simple_spinner_item);
+//                        break;
+//                    case 3:
+//                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
+//                            R.array.workout_array, android.R.layout.simple_spinner_item);
+//                        break;
+//                    default:
+//                        gameAdapter = ArrayAdapter.createFromResource(createPost.this,
+//                                R.array.ball_games_array, android.R.layout.simple_spinner_item);
+//                }
 
 
                 gameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
