@@ -149,6 +149,5 @@ public class createPost extends AppCompatActivity {
                 refPost.setValue("category",category);
             }
         });
-
     }
 }
