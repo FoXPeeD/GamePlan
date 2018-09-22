@@ -1,11 +1,14 @@
 package com.example.foxtz.gameplan;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +55,17 @@ public class PostsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posts);
 
+        Button create = findViewById(R.id.createPostButton);
+
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PostsActivity.this, createPost.class);
+                intent.putExtra("key", "value");
+                startActivity(intent);
+            }
+
+        });
         mTextMessage = findViewById(R.id.message);
         mTextMessage.setText("...NOT!");
 
