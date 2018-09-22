@@ -15,7 +15,7 @@ public class createPost extends AppCompatActivity {
         setContentView(R.layout.activity_create_post);
         getSupportActionBar().setTitle("New Post");
 
-        //catogory spinner init
+        //category spinner init
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);
@@ -68,8 +68,7 @@ public class createPost extends AppCompatActivity {
         });
 
         //year spinner init
-        final Spinner yearSpinner = findViewById(R.id.yearSpinner);
-
+        Spinner yearSpinner = findViewById(R.id.yearSpinner);
         ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(createPost.this,
                 R.array.years_array, android.R.layout.simple_spinner_item);
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -79,7 +78,7 @@ public class createPost extends AppCompatActivity {
 
         Spinner monthSpinner = findViewById(R.id.monthSpinner);
         ArrayAdapter<CharSequence> monthsAdapter = ArrayAdapter.createFromResource(this,
-                R.array.category_array, android.R.layout.simple_spinner_item);
+                R.array.months_array, android.R.layout.simple_spinner_item);
         monthsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthSpinner.setAdapter(monthsAdapter);
 
