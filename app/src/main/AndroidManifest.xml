@@ -18,7 +18,8 @@
         </activity>
         <activity
             android:name=".PostsActivity"
-            android:label="@string/title_activity_posts"></activity>
+            android:label="@string/title_activity_posts" />
+        <activity android:name=".createPost"></activity>
     </application>
 
 </manifest>
