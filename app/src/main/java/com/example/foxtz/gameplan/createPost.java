@@ -5,7 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class createPost extends AppCompatActivity {
 
@@ -16,7 +21,7 @@ public class createPost extends AppCompatActivity {
         getSupportActionBar().setTitle("New Post");
 
         //category spinner init
-        Spinner categorySpinner = findViewById(R.id.categorySpinner);
+        final Spinner categorySpinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -127,6 +132,21 @@ public class createPost extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        Button createButton = findViewById(R.id.createButton);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String category = categorySpinner.getItemAtPosition(categorySpinner.getSelectedItemPosition()).toString();
+//                Toast.makeText(createPost.this, "category is " + category, Toast.LENGTH_SHORT).show();
+                String timeString = "once upon a time";
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference refTime = database.getReference("posts/"+timeString);
+                String postKey = refTime.push().getKey();
+                DatabaseReference refPost = refTime.child(postKey);
+                refPost.setValue("category",category);
             }
         });
 
