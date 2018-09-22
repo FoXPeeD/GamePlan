@@ -8,8 +8,8 @@
     <string-array name="category_array">
         <item>Ball Games</item>
         <item>Video Games</item>
-        <item>Workout</item>
         <item>Board Games</item>
+        <item>Workout</item>
     </string-array>
 
     <string-array name="ball_games_array">
@@ -27,18 +27,18 @@
         <item>Fortnite</item>
     </string-array>
 
-    <string-array name="workout_array">
-        <item>Spinning</item>
-        <item>Zumba</item>
-        <item>Bicycling</item>
-        <item>Yoga</item>
-    </string-array>
-
     <string-array name="board_games_array">
         <item>Catan</item>
         <item>Clue</item>
         <item>Risk</item>
         <item>Talisman</item>
         <item>Monopoly</item>
+    </string-array>
+
+    <string-array name="workout_array">
+        <item>Spinning</item>
+        <item>Zumba</item>
+        <item>Bicycling</item>
+        <item>Yoga</item>
     </string-array>
 </resources>
