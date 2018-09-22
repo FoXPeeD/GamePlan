@@ -9,7 +9,7 @@ public class createPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
-        getSupportActionBar().setTitle("new Post");
+        getSupportActionBar().setTitle("New Post");
 
     }
 }
