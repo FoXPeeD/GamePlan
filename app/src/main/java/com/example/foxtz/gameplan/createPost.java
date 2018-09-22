@@ -68,7 +68,7 @@ public class createPost extends AppCompatActivity {
         });
 
         //year spinner init
-        final Spinner yearSpinner = findViewById(R.id.gameSpinner);
+        final Spinner yearSpinner = findViewById(R.id.yearSpinner);
 
         ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(createPost.this,
                 R.array.years_array, android.R.layout.simple_spinner_item);
@@ -77,14 +77,14 @@ public class createPost extends AppCompatActivity {
 
         //month spinner init
 
-        Spinner monthSpinner = findViewById(R.id.categorySpinner);
+        Spinner monthSpinner = findViewById(R.id.monthSpinner);
         ArrayAdapter<CharSequence> monthsAdapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);
         monthsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthSpinner.setAdapter(monthsAdapter);
 
         //day spinner init
-        final Spinner daySpinner = findViewById(R.id.gameSpinner);
+        final Spinner daySpinner = findViewById(R.id.daySpinner);
 
         ArrayAdapter<CharSequence> daysAdapter = ArrayAdapter.createFromResource(createPost.this,
                 R.array.day_31_array, android.R.layout.simple_spinner_item);
