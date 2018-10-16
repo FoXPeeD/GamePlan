@@ -143,7 +143,7 @@ public class createPost extends AppCompatActivity {
         hourSpinner.setAdapter(hourAdapter);
 
         //minute spinner init
-        final Spinner minuteSpinner = findViewById(R.id.hourSpinner);
+        final Spinner minuteSpinner = findViewById(R.id.minuteSpinner);
         ArrayAdapter<CharSequence> minuteAdapter = ArrayAdapter.createFromResource(this,
                 R.array.minute_array, android.R.layout.simple_spinner_item);
         minuteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
