@@ -127,7 +127,7 @@
 
     <Spinner
         android:id="@+id/monthSpinner"
-        android:layout_width="106dp"
+        android:layout_width="102dp"
         android:layout_height="23dp"
         app:layout_constraintStart_toEndOf="@+id/daySpinner"
         app:layout_constraintTop_toTopOf="@+id/daySpinner" />
@@ -141,7 +141,7 @@
 
     <Spinner
         android:id="@+id/daySpinner"
-        android:layout_width="70dp"
+        android:layout_width="76dp"
         android:layout_height="23dp"
         app:layout_constraintStart_toStartOf="@+id/categorySpinner"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
