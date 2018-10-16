@@ -127,21 +127,21 @@
 
     <Spinner
         android:id="@+id/monthSpinner"
-        android:layout_width="102dp"
+        android:layout_width="107dp"
         android:layout_height="23dp"
         app:layout_constraintStart_toEndOf="@+id/daySpinner"
         app:layout_constraintTop_toTopOf="@+id/daySpinner" />
 
     <Spinner
         android:id="@+id/yearSpinner"
-        android:layout_width="112dp"
+        android:layout_width="119dp"
         android:layout_height="23dp"
         app:layout_constraintStart_toEndOf="@+id/monthSpinner"
         app:layout_constraintTop_toTopOf="@+id/monthSpinner" />
 
     <Spinner
         android:id="@+id/daySpinner"
-        android:layout_width="76dp"
+        android:layout_width="82dp"
         android:layout_height="23dp"
         app:layout_constraintStart_toStartOf="@+id/categorySpinner"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
