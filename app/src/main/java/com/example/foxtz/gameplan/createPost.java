@@ -6,9 +6,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -73,7 +75,7 @@ public class createPost extends AppCompatActivity {
         });
 
         //year spinner init
-        Spinner yearSpinner = findViewById(R.id.yearSpinner);
+        final Spinner yearSpinner = findViewById(R.id.yearSpinner);
         ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(createPost.this,
                 R.array.years_array, android.R.layout.simple_spinner_item);
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -81,7 +83,7 @@ public class createPost extends AppCompatActivity {
 
         //month spinner init
 
-        Spinner monthSpinner = findViewById(R.id.monthSpinner);
+        final Spinner monthSpinner = findViewById(R.id.monthSpinner);
         ArrayAdapter<CharSequence> monthsAdapter = ArrayAdapter.createFromResource(this,
                 R.array.months_array, android.R.layout.simple_spinner_item);
         monthsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -156,20 +158,75 @@ public class createPost extends AppCompatActivity {
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySpinner.setAdapter(cityAdapter);
 
+
+        final EditText currentNumPlayersText = findViewById(R.id.currentPlayersEditTxt);
+        final EditText desiredNumPlayersText = findViewById(R.id.desiredPlayersEditTxt);
+
+//
+        final EditText descrptionText = findViewById(R.id.descriptionEditText);
+
         Button createButton = findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //verify all text fields are not empty
+                if (currentNumPlayersText.getText().toString().matches("") ||
+                        desiredNumPlayersText.getText().toString().matches("") ||
+                        descrptionText.getText().toString().matches("")){
+                    Toast.makeText(createPost.this, "Some of the fields are empty",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                //get info
                 String category = categorySpinner.getItemAtPosition(categorySpinner.getSelectedItemPosition()).toString();
                 String game = gameSpinner.getItemAtPosition(gameSpinner.getSelectedItemPosition()).toString();
-//                Toast.makeText(createPost.this, "category is " + category, Toast.LENGTH_SHORT).show();
-                String timeString = "once upon a time";
+                String city = citySpinner.getItemAtPosition(citySpinner.getSelectedItemPosition()).toString();
+                String day = daySpinner.getItemAtPosition(daySpinner.getSelectedItemPosition()).toString();
+                String month = monthSpinner.getItemAtPosition(monthSpinner.getSelectedItemPosition()).toString();
+                String year = yearSpinner.getItemAtPosition(yearSpinner.getSelectedItemPosition()).toString();
+                String hour = hourSpinner.getItemAtPosition(hourSpinner.getSelectedItemPosition()).toString();
+                String minute = minuteSpinner.getItemAtPosition(minuteSpinner.getSelectedItemPosition()).toString();
+                String dateString = day+"-"+month+"-"+year;
+                String timeString = hour+":"+minute;
+                int currentNumPlayers = Integer.parseInt(currentNumPlayersText.getText().toString());
+                int desiredNumPlayers = Integer.parseInt(desiredNumPlayersText.getText().toString());
+                String description = descrptionText.getText().toString();
+
+                //verify all fields are valid
+                //TODO: make sure time is not is the past
+                if(currentNumPlayers <= 0){
+                    Toast.makeText(createPost.this, "Current number of players" +
+                                    " need to be at least 1 (including you)",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(desiredNumPlayers <= currentNumPlayers){
+                    Toast.makeText(createPost.this, "Desired number of players" +
+                                    " need to be less than current number of players",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                //preper database reference
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference refTime = database.getReference("posts/"+timeString);
-                String postKey = refTime.push().getKey();
+                DatabaseReference refTime = database.getReference("posts/"+dateString+"/"+timeString);
+                String postKey = refTime.push().getKey(); //new empty post is created here
                 DatabaseReference refPost = refTime.child(postKey);
+
+                //insert data to new post
                 refPost.child("category").setValue(category);
                 refPost.child("game").setValue(game);
+                refPost.child("user").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                refPost.child("city").setValue(city);
+                refPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
+                refPost.child("currentNumPlayers").setValue(currentNumPlayers);
+                refPost.child("description").setValue(description);
+
+                //TODO: add post ID to user
+                //TODO: remove and return to previous activity
+                Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();
             }
         });
     }

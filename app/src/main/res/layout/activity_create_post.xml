@@ -182,13 +182,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/descriptionEditText"
         android:layout_width="363dp"
         android:layout_height="231dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:hint="Enter contact info and event description"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/createButton"
         app:layout_constraintEnd_toEndOf="parent"
