@@ -135,6 +135,27 @@ public class createPost extends AppCompatActivity {
             }
         });
 
+        //hour spinner init
+        final Spinner hourSpinner = findViewById(R.id.hourSpinner);
+        ArrayAdapter<CharSequence> hourAdapter = ArrayAdapter.createFromResource(this,
+                R.array.hour_array, android.R.layout.simple_spinner_item);
+        hourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hourSpinner.setAdapter(hourAdapter);
+
+        //minute spinner init
+        final Spinner minuteSpinner = findViewById(R.id.hourSpinner);
+        ArrayAdapter<CharSequence> minuteAdapter = ArrayAdapter.createFromResource(this,
+                R.array.minute_array, android.R.layout.simple_spinner_item);
+        minuteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        minuteSpinner.setAdapter(minuteAdapter);
+
+        //city spinner init
+        final Spinner citySpinner = findViewById(R.id.citySpinner);
+        ArrayAdapter<CharSequence> cityAdapter = ArrayAdapter.createFromResource(this,
+                R.array.city_array, android.R.layout.simple_spinner_item);
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(cityAdapter);
+
         Button createButton = findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
