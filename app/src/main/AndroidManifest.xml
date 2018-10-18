@@ -19,7 +19,8 @@
         <activity
             android:name=".PostsActivity"
             android:label="@string/title_activity_posts" />
-        <activity android:name=".createPost"></activity>
+        <activity android:name=".createPost" />
+        <activity android:name=".registerActivity"></activity>
     </application>
 
 </manifest>
