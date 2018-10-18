@@ -20,7 +20,7 @@ public class createPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
-        getSupportActionBar().setTitle("New Post");
+        getSupportActionBar().setTitle("New com.example.foxtz.gameplan.Post");
 
         //category spinner init
         final Spinner categorySpinner = findViewById(R.id.categorySpinner);
