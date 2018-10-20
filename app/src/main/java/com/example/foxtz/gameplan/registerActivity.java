@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class registerActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -47,6 +49,21 @@ public class registerActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
 
+//                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                    DatabaseReference myRef = database.getReference("users/"+user.getUid());
+                                    myRef.child("user name").setValue(userName.getText().toString());
+                                    myRef.child("age").setValue(age.getText().toString());
+                                    myRef.child("city").setValue(city.getText().toString());
+                                    //verify all text fields are not empty
+                                    if (userName.getText().toString().matches("") ||
+                                            age.getText().toString().matches("") ||
+                                            city.getText().toString().matches("")){
+                                        Toast.makeText(registerActivity.this, "Some of the fields are empty",
+                                                Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
+
                                     Intent intent = new Intent(registerActivity.this, PostsActivity.class);
                                     startActivity(intent);
                                     updateUI(user);
@@ -64,7 +81,8 @@ public class registerActivity extends AppCompatActivity {
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
+
     }
 
     private void updateUI(FirebaseUser user) {
