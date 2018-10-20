@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
 ////                                                    Toast.LENGTH_SHORT).show();
 //                                        }
 //                                    });
-                                    Toast.makeText(MainActivity.this, "id is " + user.getUid(),
-                                                    Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(MainActivity.this, "id is " + user.getUid(),
+//                                                    Toast.LENGTH_SHORT).show();
 
                                     Intent intent = new Intent(MainActivity.this, PostsActivity.class);
                                     intent.putExtra("key", "value");

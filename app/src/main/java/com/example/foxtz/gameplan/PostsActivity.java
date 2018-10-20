@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class PostsActivity extends AppCompatActivity {
@@ -83,26 +85,49 @@ public class PostsActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         //temp manual list
-        Post post1 = new Post("birds","cock","11:33");
-        Post post2 = new Post("birds","booby","17:83");
-        Post post3 = new Post("mammals","ass","71:00");
-        postsList.add(post1);
-        postsList.add(post2);
-        postsList.add(post3);
+//        Post post1 = new Post("birds","cock","11:33");
+//        Post post2 = new Post("birds","booby","17:83");
+//        Post post3 = new Post("mammals","ass","71:00");
+//        postsList.add(post1);
+//        postsList.add(post2);
+//        postsList.add(post3);
 
         String day = "1";
         String month = "Jan";
         String year = "2018";
-        String hour = "00";
-        String minute = "00";
+        final String hour = "00";
+        final String minute = "00";
         String dateString = day+"-"+month+"-"+year;
-        String timeString = hour+":"+minute;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final String timeString = hour+":"+minute;
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference refTime = database.getReference("posts/"+dateString+"/"+timeString);
         refTime.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> items = dataSnapshot.getChildren().iterator();
+                while(items.hasNext()){
+                    DataSnapshot item = items.next();
+                    HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
+                    postsList.add(new Post(postMap.get("category").toString(),postMap.get("game").toString(),timeString));
 
+                    postsRecyclerView = findViewById(R.id.postsRecyclerView);
+                    postsRecyclerView.setHasFixedSize(true);
+                    postsLayoutManager = new LinearLayoutManager(PostsActivity.this);
+                    postsRecyclerView.setLayoutManager(postsLayoutManager);
+                    postsRecyclerViewAdapter = new PostRecyclerViewAdapter(postsList);
+                    postsRecyclerView.addItemDecoration(new DividerItemDecoration(PostsActivity.this, LinearLayoutManager.VERTICAL));
+                    postsRecyclerView.setAdapter(postsRecyclerViewAdapter);
+                    postsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), postsRecyclerView, new RecyclerTouchListener.ClickListener() {
+                        @Override
+                        public void onClick(View view, int position) {
+                            Post post = postsList.get(position);
+                            Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
+                        }
+                    }));
+                }
+
+//                String str = dataSnapshot.getValue().getClass().toString();
+//                mTextMessage.setText(str);HashMap<String, Object>
             }
 
             @Override
