@@ -113,6 +113,14 @@ public class registerActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //verify all text fields are not empty
+                if (userName.getText().toString().matches("") ||
+                        age.getText().toString().matches("") ||
+                        citySpinner.getItemAtPosition(citySpinner.getSelectedItemPosition()).toString().matches("Select city")){
+                    Toast.makeText(registerActivity.this, "Some of the fields are empty",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
                 mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                         .addOnCompleteListener(registerActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -130,14 +138,6 @@ public class registerActivity extends AppCompatActivity {
                                     myRef.child("user name").setValue(userName.getText().toString());
                                     myRef.child("age").setValue(age.getText().toString());
                                     myRef.child("city").setValue(citySpinner.getItemAtPosition(citySpinner.getSelectedItemPosition()).toString());
-                                    //verify all text fields are not empty
-                                    if (userName.getText().toString().matches("") ||
-                                            age.getText().toString().matches("") ||
-                                            citySpinner.getItemAtPosition(citySpinner.getSelectedItemPosition()).toString().matches("Select city")){
-                                        Toast.makeText(registerActivity.this, "Some of the fields are empty",
-                                                Toast.LENGTH_LONG).show();
-                                        return;
-                                    }
 
                                     Intent intent = new Intent(registerActivity.this, PostsActivity.class);
                                     startActivity(intent);
