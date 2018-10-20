@@ -62,7 +62,7 @@ public class registerActivity extends AppCompatActivity {
 
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, R.layout.spinner_item, citiesList){
+                this, R.array.city_array, android.R.layout.simple_spinner_item){
 //            @Override
 //            public boolean isEnabled(int position){
 //                if(position == 0)
