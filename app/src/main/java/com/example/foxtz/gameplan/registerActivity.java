@@ -48,21 +48,21 @@ public class registerActivity extends AppCompatActivity {
                                     Toast.makeText(registerActivity.this, "great success.",
                                             Toast.LENGTH_SHORT).show();
 //                                    FirebaseUser user = mAuth.getCurrentUser();
-
-                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    DatabaseReference myRef = database.getReference("users/"+user.getUid());
-                                    myRef.child("user name").setValue(userName.getText().toString());
-                                    myRef.child("age").setValue(age.getText().toString());
-                                    myRef.child("city").setValue(city.getText().toString());
-                                    //verify all text fields are not empty
-                                    if (userName.getText().toString().matches("") ||
-                                            age.getText().toString().matches("") ||
-                                            city.getText().toString().matches("")){
-                                        Toast.makeText(registerActivity.this, "Some of the fields are empty",
-                                                Toast.LENGTH_LONG).show();
-                                        return;
-                                    }
+//
+////                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                                    DatabaseReference myRef = database.getReference("users/"+user.getUid());
+//                                    myRef.child("user name").setValue(userName.getText().toString());
+//                                    myRef.child("age").setValue(age.getText().toString());
+//                                    myRef.child("city").setValue(city.getText().toString());
+//                                    //verify all text fields are not empty
+//                                    if (userName.getText().toString().matches("") ||
+//                                            age.getText().toString().matches("") ||
+//                                            city.getText().toString().matches("")){
+//                                        Toast.makeText(registerActivity.this, "Some of the fields are empty",
+//                                                Toast.LENGTH_LONG).show();
+//                                        return;
+//                                    }
 
                                     Intent intent = new Intent(registerActivity.this, PostsActivity.class);
                                     startActivity(intent);
