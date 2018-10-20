@@ -58,11 +58,13 @@ public class registerActivity extends AppCompatActivity {
                 "Qiryat-shemona"
         };
 
+        //TODO: use recource instead of array
+
         final List<String> citiesList = new ArrayList<>(Arrays.asList(cities));
 
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, R.array.city_array, android.R.layout.simple_spinner_item){
+                this, R.layout.spinner_item, citiesList){
 //            @Override
 //            public boolean isEnabled(int position){
 //                if(position == 0)
