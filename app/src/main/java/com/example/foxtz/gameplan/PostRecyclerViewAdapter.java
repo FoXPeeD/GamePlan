@@ -10,7 +10,8 @@ import java.util.List;
 
 public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.MyViewHolder> {
 
-    private List<Post> postsList;
+    private List<Post> postsList;   //add final?
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView game, time, category;
