@@ -99,34 +99,47 @@ public class PostsActivity extends AppCompatActivity {
         postsRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         postsRecyclerView.setAdapter(postsRecyclerViewAdapter);
 
+        postsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), postsRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Post post = postsList.get(position);
+                Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
+            }
+
+//            @Override
+//            public void onLongClick(View view, int position) {
+//
+//            }
+        }));
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users/"+user.getUid());
-        DatabaseReference myName = myRef.child("name");
-        myName.setValue("Ali G");
         getSupportActionBar().setTitle("Posts");
 
-        myName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("read DB", "Value is: " + value);
-                mTextMessage.setText(value);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("read DB", "Failed to read value.", error.toException());
-            }
-        });
+//        user = FirebaseAuth.getInstance().getCurrentUser();
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("users/"+user.getUid());
+//        DatabaseReference myName = myRef.child("name");
+//        myName.setValue("Ali G");
+//        myName.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                String value = dataSnapshot.getValue(String.class);
+//                Log.d("read DB", "Value is: " + value);
+//                mTextMessage.setText(value);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w("read DB", "Failed to read value.", error.toException());
+//            }
+//        });
     }
 
 //
