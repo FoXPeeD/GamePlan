@@ -47,7 +47,7 @@ public class registerActivity extends AppCompatActivity {
                                     Log.d(TAG, "createUserWithEmail:success");
                                     Toast.makeText(registerActivity.this, "great success.",
                                             Toast.LENGTH_SHORT).show();
-//                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    FirebaseUser user = mAuth.getCurrentUser();
 //
 ////                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
