@@ -34,6 +34,7 @@ public class registerActivity extends AppCompatActivity {
         final EditText password = findViewById(R.id.passwordEditText);
         final EditText age = findViewById(R.id.ageEditText);
         final EditText city = findViewById(R.id.cityEditText);
+        mAuth = FirebaseAuth.getInstance();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +81,6 @@ public class registerActivity extends AppCompatActivity {
                         });
             }
         });
-
-        mAuth = FirebaseAuth.getInstance();
 
     }
 
