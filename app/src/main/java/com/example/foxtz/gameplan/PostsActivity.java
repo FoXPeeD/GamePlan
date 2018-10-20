@@ -90,6 +90,27 @@ public class PostsActivity extends AppCompatActivity {
         postsList.add(post2);
         postsList.add(post3);
 
+        String day = "1";
+        String month = "Jan";
+        String year = "2018";
+        String hour = "00";
+        String minute = "00";
+        String dateString = day+"-"+month+"-"+year;
+        String timeString = hour+":"+minute;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference refTime = database.getReference("posts/"+dateString+"/"+timeString);
+        refTime.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         //recyclerView
         postsRecyclerView = findViewById(R.id.postsRecyclerView);
         postsRecyclerView.setHasFixedSize(true);

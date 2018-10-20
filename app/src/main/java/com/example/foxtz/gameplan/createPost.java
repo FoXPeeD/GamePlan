@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -218,13 +219,17 @@ public class createPost extends AppCompatActivity {
                 //insert data to new post
                 refPost.child("category").setValue(category);
                 refPost.child("game").setValue(game);
-                refPost.child("user").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                refPost.child("user").setValue(userId);
                 refPost.child("city").setValue(city);
                 refPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
                 refPost.child("currentNumPlayers").setValue(currentNumPlayers);
                 refPost.child("description").setValue(description);
 
-                //TODO: add post ID to user
+                //add post ID to user
+                DatabaseReference refUser = database.getReference("users/"+userId);
+                refUser.child("created").child(postKey).setValue(true);
+
                 //TODO: remove and return to previous activity
                 Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();
             }
