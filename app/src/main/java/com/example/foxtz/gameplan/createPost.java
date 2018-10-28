@@ -212,7 +212,8 @@ public class createPost extends AppCompatActivity {
 
                 //preper database reference
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference refTime = database.getReference("posts/"+dateString+"/"+timeString);
+//                DatabaseReference refTime = database.getReference("posts/"+dateString+"/"+timeString);
+                DatabaseReference refTime = database.getReference("posts/"+year+"/"+month+"/"+day+"/"+timeString);
                 String postKey = refTime.push().getKey(); //new empty post is created here
                 DatabaseReference refPost = refTime.child(postKey);
 
