@@ -74,7 +74,10 @@ public class PostsActivity extends AppCompatActivity {
                                     while(items.iterator().hasNext()) {
                                         DataSnapshot item = items.iterator().next();
                                         HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
-                                        postsList.add(new Post(postMap.get("category").toString(), postMap.get("game").toString(), hour, minute));
+                                        postsList.add(new Post(postMap.get("category").toString(), postMap.get("game").toString(), hour, minute,
+                                                day,strings.getMonths()[month],year,postMap.get("city").toString(),postMap.get("userID").toString(),
+                                                postMap.get("currentNumPlayers").toString(),postMap.get("desiredNumPlayers").toString(),
+                                                postMap.get("description").toString(),postMap.get("user_name").toString()));
 
                                     }
                                 }

@@ -12,11 +12,15 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class createPost extends AppCompatActivity {
 
+    String userName = "N/A";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,7 +216,6 @@ public class createPost extends AppCompatActivity {
 
                 //preper database reference
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference refTime = database.getReference("posts/"+dateString+"/"+timeString);
                 DatabaseReference refTime = database.getReference("posts/"+year+"/"+month+"/"+day+"/"+timeString);
                 String postKey = refTime.push().getKey(); //new empty post is created here
                 DatabaseReference refPost = refTime.child(postKey);
@@ -221,11 +224,12 @@ public class createPost extends AppCompatActivity {
                 refPost.child("category").setValue(category);
                 refPost.child("game").setValue(game);
                 String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                refPost.child("user").setValue(userId);
+                refPost.child("userID").setValue(userId);
                 refPost.child("city").setValue(city);
                 refPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
                 refPost.child("currentNumPlayers").setValue(currentNumPlayers);
                 refPost.child("description").setValue(description);
+                refPost.child("user_name").setValue(userName);
 
                 //add post ID to user
                 DatabaseReference refUser = database.getReference("users/"+userId);
@@ -233,15 +237,32 @@ public class createPost extends AppCompatActivity {
                 DatabaseReference refUserPost = refCreatedTime.child(postKey);
                 refUserPost.child("category").setValue(category);
                 refUserPost.child("game").setValue(game);
-                refUserPost.child("user").setValue(userId);
+                refUserPost.child("userID").setValue(userId);
                 refUserPost.child("city").setValue(city);
                 refUserPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
                 refUserPost.child("currentNumPlayers").setValue(currentNumPlayers);
                 refUserPost.child("description").setValue(description);
+                refUserPost.child("user_name").setValue(userName);
 
 
                 //TODO: remove and return to previous activity
                 Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference refName = database.getReference("users/" + userId + "/user_name");
+        refName.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userName = dataSnapshot.getValue().toString();
+//                Toast.makeText(createPost.this, "user name is " + userName, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
