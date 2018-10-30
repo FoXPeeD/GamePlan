@@ -14,8 +14,8 @@ public class Post implements Serializable {
     private String description;
     private int currNumPlayers, DesiredNumPlayers;
 
-    public Post(String category, String game, int hour, int minutes, String day, String month,
-                String year, String city, String user, String currNumPlayers, String DesiredNumPlayers, String description) {
+    public Post(String category, String game, int hour, int minutes, int day, String month,
+                int year, String city, String user, String currNumPlayers, String DesiredNumPlayers, String description) {
         this.category = category;
         this.game = game;
 
@@ -23,10 +23,10 @@ public class Post implements Serializable {
         this.minutes = minutes;
         this.time = String.format("%02d", hour) + ":" + String.format("%02d", minutes);
 
-        this.day = Integer.valueOf(day);
+        this.day = day;
         this.month = month;
         this.year = Integer.valueOf(year);
-        this.date = day + "/" + month + "/" + year;
+        this.date = String.format("%02d", day) + "/" + month + "/" + year;
 
         this.currNumPlayers = Integer.valueOf(currNumPlayers);
         this.DesiredNumPlayers = Integer.valueOf(DesiredNumPlayers);
