@@ -185,7 +185,6 @@ public class PostsActivity extends AppCompatActivity {
     private RecyclerView.Adapter postsRecyclerViewAdapter;
     private RecyclerView.LayoutManager postsLayoutManager;
 
-    private Button refreshButton;
 
 
     @Override
@@ -196,7 +195,7 @@ public class PostsActivity extends AppCompatActivity {
         loadingText.setTextSize(24);
 
         TextView messageText = findViewById(R.id.messageText);
-        messageText.setVisibility(View.GONE);   //TODO: remove
+        messageText.setVisibility(View.GONE);   //TODO: remove button
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -206,9 +205,6 @@ public class PostsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        mTextMessage = findViewById(R.id.message);
-        mTextMessage.setText("...NOT!");
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -233,13 +229,6 @@ public class PostsActivity extends AppCompatActivity {
             }
         }));
 
-//        refreshButton = findViewById(R.id.refreshButton);
-//        refreshButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                loadPostsCurrentTab();
-//            }
-//        });
     }
 
     @Override
@@ -249,13 +238,7 @@ public class PostsActivity extends AppCompatActivity {
         loadPostsCurrentTab();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.posts_action_bar, menu);
-//        return true;
-//    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

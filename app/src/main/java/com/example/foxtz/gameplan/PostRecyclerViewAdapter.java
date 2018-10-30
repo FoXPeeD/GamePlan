@@ -14,13 +14,14 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView game, time, category;
+        public TextView game, time, category, date;
 
         public MyViewHolder(View view) {
             super(view);
             game = view.findViewById(R.id.game);
             category = view.findViewById(R.id.category);
             time = view.findViewById(R.id.time);
+            date = view.findViewById(R.id.date);
         }
     }
 
@@ -42,6 +43,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
         holder.game.setText(post.getGame());
         holder.category.setText(post.getCategory());
         holder.time.setText(String.valueOf(post.getTime()));
+        holder.date.setText(String.valueOf(post.getDate()));
     }
 
     @Override
