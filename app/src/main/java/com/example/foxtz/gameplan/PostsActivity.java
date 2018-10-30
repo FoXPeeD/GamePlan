@@ -92,7 +92,6 @@ public class PostsActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
                     }
                 }));
-                Toast.makeText(getApplicationContext(), "Done loading", Toast.LENGTH_SHORT).show();
                 if(postsList.size() == 0){
                     loadingText.setText("Nothing to show :(");
                 } else {
