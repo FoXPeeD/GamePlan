@@ -93,7 +93,10 @@ public class PostsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position) {
                         Post post = postsList.get(position);
-                        Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PostsActivity.this, ViewPost.class);
+                        intent.putExtra("Post", post);
+                        startActivity(intent);
+//                        Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
                     }
                 }));
                 if(postsList.size() == 0){

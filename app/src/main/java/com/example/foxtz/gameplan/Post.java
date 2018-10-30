@@ -1,6 +1,8 @@
 package com.example.foxtz.gameplan;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable {
 
     private int hour,minutes;
     private int day, year;
