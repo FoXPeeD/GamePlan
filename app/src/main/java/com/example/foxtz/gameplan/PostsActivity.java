@@ -39,14 +39,17 @@ import com.example.foxtz.gameplan.StringsClass;
 
 public class PostsActivity extends AppCompatActivity {
 
+    PostFilter dummyFilter = new PostFilter();
+
     TextView loadingText;
+
     private List<Post> postsList = new ArrayList<>();
     private int currentTab = R.string.title_all;
 
 //    private FirebaseAuth mAuth;
     FirebaseUser user;
 
-    private void loadPosts_internal(String pathToPosts){
+    private void loadPosts_internal(String pathToPosts, final PostFilter filter){
         loadingText.setText("Loading...");
 
         postsList.clear();
@@ -64,6 +67,9 @@ public class PostsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 StringsClass strings = new StringsClass();
+                int fromYear = filter.fromYear;
+                int fromMonth = filter.fromMonth;
+                int fromDay = filter.fromDay;
                 for(int year = 2018; year <= 2018 ; year++) {
                     for (int month = 0; month < 3; month++) {
                         for (int day = 1; day <= 2; day++) {
@@ -74,6 +80,7 @@ public class PostsActivity extends AppCompatActivity {
                                     while(items.iterator().hasNext()) {
                                         DataSnapshot item = items.iterator().next();
                                         HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
+
                                         postsList.add(new Post(postMap.get("category").toString(), postMap.get("game").toString(), hour, minute,
                                                 day,strings.getMonths()[month],year,postMap.get("city").toString(),postMap.get("userID").toString(),
                                                 postMap.get("currentNumPlayers").toString(),postMap.get("desiredNumPlayers").toString(),
@@ -101,47 +108,46 @@ public class PostsActivity extends AppCompatActivity {
             }
         });
     }
-    private void loadPostsAll(){
-        loadPosts_internal("posts");
+    private void loadPostsAll(PostFilter filter){
+        loadPosts_internal("posts",dummyFilter);
     }
-    private void loadPostsAttending(){
+    private void loadPostsAttending(PostFilter filter){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        loadPosts_internal("users/"+userId+"/attending");
+        loadPosts_internal("users/"+userId+"/attending",dummyFilter);
     }
-    private void loadPostsCreated(){
+    private void loadPostsCreated(PostFilter filter){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        loadPosts_internal("users/"+userId+"/created");
+        loadPosts_internal("users/"+userId+"/created",dummyFilter);
     }
-    private void loadPostsHistory(){
+    private void loadPostsHistory(PostFilter filter){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        loadPosts_internal("users/"+userId+"/history");
+        loadPosts_internal("users/"+userId+"/history",dummyFilter);
     }
-    private void loadPostsRecommended(){
+    private void loadPostsRecommended(PostFilter filter){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        loadPosts_internal("users/"+userId+"/recommended");
+        loadPosts_internal("users/"+userId+"/recommended",dummyFilter);
     }
-    private void loadPostsCurrentTab(){
+    private void loadPostsCurrentTab(PostFilter filter){
         switch (currentTab){
             case R.id.navigation_all:
-                loadPostsAll();
+                loadPostsAll(dummyFilter);
                 return;
             case R.id.navigation_attending:
-                loadPostsAttending();
+                loadPostsAttending(dummyFilter);
                 return;
             case R.id.navigation_created:
-                loadPostsCreated();
+                loadPostsCreated(dummyFilter);
                 return;
             case R.id.navigation_history:
-                loadPostsHistory();
+                loadPostsHistory(dummyFilter);
                 return;
             case R.id.navigation_recommended:
-                loadPostsRecommended();
+                loadPostsRecommended(dummyFilter);
                 return;
             default:
                 Toast.makeText(getApplicationContext(), "no current tab set", Toast.LENGTH_SHORT).show();
         }
     }
-    private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -150,29 +156,24 @@ public class PostsActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_all:
-                    mTextMessage.setText(R.string.title_all);
                     currentTab = R.id.navigation_all;
-                    loadPostsAll();
+                    loadPostsAll(dummyFilter);
                     return true;
                 case R.id.navigation_attending:
-                    mTextMessage.setText(R.string.title_attending);
                     currentTab = R.id.navigation_attending;
-                    loadPostsAttending();
+                    loadPostsAttending(dummyFilter);
                     return true;
                 case R.id.navigation_created:
-                    mTextMessage.setText(R.string.title_created_events);
                     currentTab = R.id.navigation_created;
-                    loadPostsCreated();
+                    loadPostsCreated(dummyFilter);
                     return true;
                 case R.id.navigation_history:
-                    mTextMessage.setText(R.string.title_history);
                     currentTab = R.id.navigation_history;
-                    loadPostsHistory();
+                    loadPostsHistory(dummyFilter);
                     return true;
                 case R.id.navigation_recommended:
-                    mTextMessage.setText(R.string.title_history);
                     currentTab = R.id.navigation_recommended;
-                    loadPostsHistory();
+                    loadPostsHistory(dummyFilter);
                     return true;
                 default:
                     Toast.makeText(getApplicationContext(), "unexpected tab", Toast.LENGTH_SHORT).show();
@@ -193,9 +194,6 @@ public class PostsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_posts);
         loadingText = findViewById(R.id.loadingTextView);
         loadingText.setTextSize(24);
-
-        TextView messageText = findViewById(R.id.messageText);
-        messageText.setVisibility(View.GONE);   //TODO: remove button
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -235,7 +233,7 @@ public class PostsActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         getSupportActionBar().setTitle("Posts");
-        loadPostsCurrentTab();
+        loadPostsCurrentTab(dummyFilter);
     }
 
 
@@ -264,7 +262,7 @@ public class PostsActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_reload:
-                loadPostsCurrentTab();
+                loadPostsCurrentTab(dummyFilter);
                 return true;
 
             default:
