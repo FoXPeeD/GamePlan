@@ -85,23 +85,8 @@ public class PostsActivity extends AppCompatActivity {
                         }
                     }
                 }
-                postsRecyclerView = findViewById(R.id.postsRecyclerView);
-                postsRecyclerView.setHasFixedSize(true);
-                postsLayoutManager = new LinearLayoutManager(PostsActivity.this);
-                postsRecyclerView.setLayoutManager(postsLayoutManager);
                 postsRecyclerViewAdapter = new PostRecyclerViewAdapter(postsList);
-                postsRecyclerView.addItemDecoration(new DividerItemDecoration(PostsActivity.this, LinearLayoutManager.VERTICAL));
                 postsRecyclerView.setAdapter(postsRecyclerViewAdapter);
-                postsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), postsRecyclerView, new RecyclerTouchListener.ClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        Post post = postsList.get(position);
-                        Intent intent = new Intent(PostsActivity.this, ViewPost.class);
-                        intent.putExtra("Post", post);
-                        startActivity(intent);
-//                        Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
-                    }
-                }));
                 if(postsList.size() == 0){
                     loadingText.setText("Nothing to show :(");
                 } else {
@@ -210,6 +195,9 @@ public class PostsActivity extends AppCompatActivity {
         loadingText = findViewById(R.id.loadingTextView);
         loadingText.setTextSize(24);
 
+        TextView messageText = findViewById(R.id.messageText);
+        messageText.setVisibility(View.GONE);   //TODO: remove
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,16 +224,13 @@ public class PostsActivity extends AppCompatActivity {
         postsRecyclerView.setAdapter(postsRecyclerViewAdapter);
 
         postsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), postsRecyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick (View view, int position) {
+            public void onClick(View view, int position) {
                 Post post = postsList.get(position);
-                Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PostsActivity.this, ViewPost.class);
+                intent.putExtra("Post", post);
+                startActivity(intent);
+//                        Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
             }
-
-//            @Override
-//            public void onLongClick(View view, int position) {
-//
-//            }
         }));
 
 //        refreshButton = findViewById(R.id.refreshButton);
