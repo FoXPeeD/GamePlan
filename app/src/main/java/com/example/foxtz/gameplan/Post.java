@@ -104,4 +104,8 @@ public class Post implements Serializable {
     public int getDesiredNumPlayers() {
         return DesiredNumPlayers;
     }
+
+    public String getUserName() {
+        return userName;
+    }
 }
