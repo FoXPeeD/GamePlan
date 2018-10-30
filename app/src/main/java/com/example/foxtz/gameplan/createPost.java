@@ -231,18 +231,30 @@ public class createPost extends AppCompatActivity {
                 refPost.child("description").setValue(description);
                 refPost.child("user_name").setValue(userName);
 
-                //add post ID to user
+                //add post user as created
                 DatabaseReference refUser = database.getReference("users/"+userId);
                 DatabaseReference refCreatedTime = refUser.child("created/"+year+"/"+month+"/"+day+"/"+timeString);
-                DatabaseReference refUserPost = refCreatedTime.child(postKey);
-                refUserPost.child("category").setValue(category);
-                refUserPost.child("game").setValue(game);
-                refUserPost.child("userID").setValue(userId);
-                refUserPost.child("city").setValue(city);
-                refUserPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
-                refUserPost.child("currentNumPlayers").setValue(currentNumPlayers);
-                refUserPost.child("description").setValue(description);
-                refUserPost.child("user_name").setValue(userName);
+                DatabaseReference refCreatedPost = refCreatedTime.child(postKey);
+                refCreatedPost.child("category").setValue(category);
+                refCreatedPost.child("game").setValue(game);
+                refCreatedPost.child("userID").setValue(userId);
+                refCreatedPost.child("city").setValue(city);
+                refCreatedPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
+                refCreatedPost.child("currentNumPlayers").setValue(currentNumPlayers);
+                refCreatedPost.child("description").setValue(description);
+                refCreatedPost.child("user_name").setValue(userName);
+
+                //add post user as attending
+                DatabaseReference refAttendingTime = refUser.child("attending/"+year+"/"+month+"/"+day+"/"+timeString);
+                DatabaseReference refAttendingPost = refAttendingTime.child(postKey);
+                refAttendingPost.child("category").setValue(category);
+                refAttendingPost.child("game").setValue(game);
+                refAttendingPost.child("userID").setValue(userId);
+                refAttendingPost.child("city").setValue(city);
+                refAttendingPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
+                refAttendingPost.child("currentNumPlayers").setValue(currentNumPlayers);
+                refAttendingPost.child("description").setValue(description);
+                refAttendingPost.child("user_name").setValue(userName);
 
 
                 //TODO: remove and return to previous activity
