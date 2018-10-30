@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="action_bar_icons">#FFFFFF</color>
+
     <color name="time">#999999</color>
     <color name="game">#222222</color>
 </resources>
