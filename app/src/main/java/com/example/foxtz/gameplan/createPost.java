@@ -229,7 +229,16 @@ public class createPost extends AppCompatActivity {
 
                 //add post ID to user
                 DatabaseReference refUser = database.getReference("users/"+userId);
-                refUser.child("created").child(postKey).setValue(true);
+                DatabaseReference refCreatedTime = refUser.child("created/"+year+"/"+month+"/"+day+"/"+timeString);
+                DatabaseReference refUserPost = refCreatedTime.child(postKey);
+                refUserPost.child("category").setValue(category);
+                refUserPost.child("game").setValue(game);
+                refUserPost.child("user").setValue(userId);
+                refUserPost.child("city").setValue(city);
+                refUserPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
+                refUserPost.child("currentNumPlayers").setValue(currentNumPlayers);
+                refUserPost.child("description").setValue(description);
+
 
                 //TODO: remove and return to previous activity
                 Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();

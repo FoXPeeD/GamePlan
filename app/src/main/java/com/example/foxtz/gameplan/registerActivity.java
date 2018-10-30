@@ -137,7 +137,7 @@ public class registerActivity extends AppCompatActivity {
 //                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     DatabaseReference myRef = database.getReference("users/"+user.getUid());
-                                    myRef.child("user name").setValue(userName.getText().toString());
+                                    myRef.child("user_name").setValue(userName.getText().toString());
                                     myRef.child("age").setValue(age.getText().toString());
                                     myRef.child("city").setValue(citySpinner.getItemAtPosition(citySpinner.getSelectedItemPosition()).toString());
 

@@ -1,11 +1,13 @@
 package com.example.foxtz.gameplan;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,11 +41,12 @@ public class PostsActivity extends AppCompatActivity {
 
     TextView loadingText;
     private List<Post> postsList = new ArrayList<>();
+    private int currentTab = R.string.title_all;
 
 //    private FirebaseAuth mAuth;
     FirebaseUser user;
 
-    private void loadPosts(){
+    private void loadPosts_internal(String pathToPosts){
         loadingText.setText("Loading...");
 
         postsList.clear();
@@ -56,11 +59,10 @@ public class PostsActivity extends AppCompatActivity {
         postsRecyclerView.setAdapter(postsRecyclerViewAdapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference refPosts = database.getReference("posts");
+        DatabaseReference refPosts = database.getReference(pathToPosts);
         refPosts.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String time = dataSnapshot.getKey();
                 StringsClass strings = new StringsClass();
                 for(int year = 2018; year <= 2018 ; year++) {
                     for (int month = 0; month < 3; month++) {
@@ -72,7 +74,7 @@ public class PostsActivity extends AppCompatActivity {
                                     while(items.iterator().hasNext()) {
                                         DataSnapshot item = items.iterator().next();
                                         HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
-                                        postsList.add(new Post(postMap.get("category").toString(), postMap.get("game").toString(), time));
+                                        postsList.add(new Post(postMap.get("category").toString(), postMap.get("game").toString(), timeString));
 
                                     }
                                 }
@@ -108,6 +110,46 @@ public class PostsActivity extends AppCompatActivity {
             }
         });
     }
+    private void loadPostsAll(){
+        loadPosts_internal("posts");
+    }
+    private void loadPostsAttending(){
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        loadPosts_internal("users/"+userId+"/attending");
+    }
+    private void loadPostsCreated(){
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        loadPosts_internal("users/"+userId+"/created");
+    }
+    private void loadPostsHistory(){
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        loadPosts_internal("users/"+userId+"/history");
+    }
+    private void loadPostsRecommended(){
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        loadPosts_internal("users/"+userId+"/recommended");
+    }
+    private void loadPostsCurrentTab(){
+        switch (currentTab){
+            case R.id.navigation_all:
+                loadPostsAll();
+                return;
+            case R.id.navigation_attending:
+                loadPostsAttending();
+                return;
+            case R.id.navigation_created:
+                loadPostsCreated();
+                return;
+            case R.id.navigation_history:
+                loadPostsHistory();
+                return;
+            case R.id.navigation_recommended:
+                loadPostsRecommended();
+                return;
+            default:
+                Toast.makeText(getApplicationContext(), "no current tab set", Toast.LENGTH_SHORT).show();
+        }
+    }
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -116,15 +158,33 @@ public class PostsActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.navigation_all:
+                    mTextMessage.setText(R.string.title_all);
+                    currentTab = R.id.navigation_all;
+                    loadPostsAll();
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_attending:
+                    mTextMessage.setText(R.string.title_attending);
+                    currentTab = R.id.navigation_attending;
+                    loadPostsAttending();
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_created:
+                    mTextMessage.setText(R.string.title_created_events);
+                    currentTab = R.id.navigation_created;
+                    loadPostsCreated();
                     return true;
+                case R.id.navigation_history:
+                    mTextMessage.setText(R.string.title_history);
+                    currentTab = R.id.navigation_history;
+                    loadPostsHistory();
+                    return true;
+                case R.id.navigation_recommended:
+                    mTextMessage.setText(R.string.title_history);
+                    currentTab = R.id.navigation_recommended;
+                    loadPostsHistory();
+                    return true;
+                default:
+                    Toast.makeText(getApplicationContext(), "unexpected tab", Toast.LENGTH_SHORT).show();
             }
             return false;
         }
@@ -144,26 +204,21 @@ public class PostsActivity extends AppCompatActivity {
         loadingText = findViewById(R.id.loadingTextView);
         loadingText.setTextSize(24);
 
-        Button create = findViewById(R.id.createPostButton);
-        create.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PostsActivity.this, createPost.class);
-                intent.putExtra("key", "value");
                 startActivity(intent);
             }
-
         });
-
-//        Toolbar myToolbar = findViewById(R.id.posts_action_bar);
-//        setSupportActionBar(myToolbar);
 
         mTextMessage = findViewById(R.id.message);
         mTextMessage.setText("...NOT!");
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        currentTab = R.id.navigation_all;
 
         //recyclerView
         postsRecyclerView = findViewById(R.id.postsRecyclerView);
@@ -187,20 +242,20 @@ public class PostsActivity extends AppCompatActivity {
 //            }
         }));
 
-        refreshButton = findViewById(R.id.refreshButton);
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadPosts();
-            }
-        });
+//        refreshButton = findViewById(R.id.refreshButton);
+//        refreshButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                loadPostsCurrentTab();
+//            }
+//        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
         getSupportActionBar().setTitle("Posts");
-        loadPosts();
+        loadPostsCurrentTab();
     }
 
 //    @Override
@@ -225,4 +280,26 @@ public class PostsActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+                //TODO: call intent and update posts accordingly
+
+                return true;
+
+            case R.id.action_reload:
+                loadPostsCurrentTab();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
 }
