@@ -87,14 +87,14 @@
 
     <TextView
         android:id="@+id/categoryTextView"
-        android:layout_width="65dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/organizerTextView"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/dateTextView"
-        android:layout_width="65dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/organizerTextView"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
