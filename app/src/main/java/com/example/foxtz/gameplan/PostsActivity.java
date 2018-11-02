@@ -70,16 +70,48 @@ public class PostsActivity extends AppCompatActivity {
                 int fromYear = filter.fromYear;
                 int fromMonth = filter.fromMonth;
                 int fromDay = filter.fromDay;
-                for(int year = 2018; year <= 2018 ; year++) {
-                    for (int month = 0; month < 3; month++) {
-                        for (int day = 1; day <= 2; day++) {
-                            for (int hour = 0; hour <= 23; hour++) {
-                                for (int minute = 0; minute <= 45; minute += 15) {
+                int toYear = filter.toYear;
+                int toMonth = 12;
+                int toDay = 31;
+                int fromHour = filter.fromHour;
+                int toHour = filter.toHour;
+                int fromMinutes = filter.fromMinutes;
+                int toMinutes = 45;
+                for(int year = fromYear; year <= toYear ; year++) {
+                    if(year == toYear){
+                        toMonth = filter.toMonth;
+                    }
+                    for (int month = fromMonth; month <= toMonth; month++) {
+                        if(year == toMonth){
+                            toDay = filter.toDay;
+                        }
+                        for (int day = fromDay; day <= toDay; day++) {
+                            for (int hour = fromHour; hour <= toHour; hour++) {
+                                if(hour == toHour){
+                                    toMinutes = filter.toMinutes;
+                                }
+                                for (int minute = fromMinutes; minute <= toMinutes; minute += 15) {
                                     String timeString = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-                                    Iterable<DataSnapshot> items = dataSnapshot.child(String.valueOf(year)).child(strings.getMonths()[month]).child(String.valueOf(day)).child(timeString).getChildren();
+                                    Iterable<DataSnapshot> items = dataSnapshot.child(String.valueOf(year)).child(strings.getMonths()[month-1]).child(String.valueOf(day)).child(timeString).getChildren();
                                     while(items.iterator().hasNext()) {
                                         DataSnapshot item = items.iterator().next();
                                         HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
+                                        if(filter.filterFull &&
+                                                (postMap.get("desiredNumPlayers").toString() == postMap.get("currentNumPlayers").toString())){
+                                            continue;
+                                        }
+                                        if(filter.filterCategory &&
+                                                (!postMap.get("category").toString().equals(filter.category))){
+                                            continue;
+                                        }
+                                        if(filter.filterGame &&
+                                                (!postMap.get("game").toString().equals(filter.game))){
+                                            continue;
+                                        }
+                                        if(filter.filterCity &&
+                                                (!postMap.get("city").toString().equals(filter.city))){
+                                            continue;
+                                        }
 
                                         postsList.add(new Post(postMap.get("category").toString(), postMap.get("game").toString(), hour, minute,
                                                 day,strings.getMonths()[month],year,postMap.get("city").toString(),postMap.get("userID").toString(),
@@ -88,9 +120,12 @@ public class PostsActivity extends AppCompatActivity {
 
                                     }
                                 }
+                                fromMinutes = 0;
                             }
                         }
+                        fromDay = 1;
                     }
+                    fromMonth = 0;
                 }
                 postsRecyclerViewAdapter = new PostRecyclerViewAdapter(postsList);
                 postsRecyclerView.setAdapter(postsRecyclerViewAdapter);
