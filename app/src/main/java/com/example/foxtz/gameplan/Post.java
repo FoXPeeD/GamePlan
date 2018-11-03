@@ -14,10 +14,11 @@ public class Post implements Serializable {
     private String description;
     private String userName;
     private int currNumPlayers, DesiredNumPlayers;
+    private String id;
 
     public Post(String category, String game, int hour, int minutes, int day, String month,
                 int year, String city, String userID, String currNumPlayers, String DesiredNumPlayers,
-                String description, String userName) {
+                String description, String userName,String id) {
         this.category = category;
         this.game = game;
 
@@ -36,6 +37,8 @@ public class Post implements Serializable {
         this.userID = userID;
         this.description = description;
         this.userName = userName;
+
+        this.id = id;
 
     }
 
@@ -108,4 +111,6 @@ public class Post implements Serializable {
     public String getUserName() {
         return userName;
     }
+
+    public String getId() { return id; }
 }

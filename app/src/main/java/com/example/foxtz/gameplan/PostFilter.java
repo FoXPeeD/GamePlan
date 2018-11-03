@@ -3,7 +3,7 @@ package com.example.foxtz.gameplan;
 
 import org.joda.time.DateTime;
 
-public class PostFilter {
+public class PostFilter implements java.lang.Cloneable{
 
     final int MIN_MINUTES = 0;
     final int MAX_MINUTES = 45;
@@ -14,11 +14,11 @@ public class PostFilter {
 
     public PostFilter(){//TODO: create real c'tor
         this.fromYear = 2018;
-        this.fromMonth = 1;
+        this.fromMonth = 1;//valid values are 1 to 12
         this.fromDay = 1;
 
         this.toYear = 2018;
-        this.toMonth = 3;//valid values are 0 to 11
+        this.toMonth = 3;//valid values are 1 to 12
         this.toDay = 2;
 
         this.fromHour = MIN_HOUR;
@@ -51,6 +51,22 @@ public class PostFilter {
         this.toDay = day;
         this.toMonth = month;
         this.toYear = year;
+    }
+
+    public void setStartDateEarlierThanNowByMonths(int months){
+        DateTime now = new org.joda.time.DateTime();
+        DateTime past = now.minusMonths(months);
+        this.fromYear = past.getYear();
+        this.fromMonth = past.getMonthOfYear();
+        this.fromDay = past.getDayOfMonth();
+    }
+
+    public void setEndDateLaterThanNowByMonths(int months){
+        DateTime now = new org.joda.time.DateTime();
+        DateTime future = now.plusMonths(months);
+        this.toYear = future.getYear();
+        this.toMonth = future.getMonthOfYear();
+        this.toDay = future.getDayOfMonth();
     }
 
     public void setTimeAsAllDay(){
@@ -110,4 +126,9 @@ public class PostFilter {
     String category;
     String game;
     String city;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

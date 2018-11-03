@@ -39,7 +39,7 @@ import com.example.foxtz.gameplan.StringsClass;
 
 public class PostsActivity extends AppCompatActivity {
 
-    PostFilter dummyFilter = new PostFilter();
+    PostFilter dummyFilter;
 
     TextView loadingText;
 
@@ -82,7 +82,7 @@ public class PostsActivity extends AppCompatActivity {
                         toMonth = filter.toMonth;
                     }
                     for (int month = fromMonth; month <= toMonth; month++) {
-                        if(year == toMonth){
+                        if(month == toMonth){
                             toDay = filter.toDay;
                         }
                         for (int day = fromDay; day <= toDay; day++) {
@@ -92,10 +92,12 @@ public class PostsActivity extends AppCompatActivity {
                                 }
                                 for (int minute = fromMinutes; minute <= toMinutes; minute += 15) {
                                     String timeString = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-                                    Iterable<DataSnapshot> items = dataSnapshot.child(String.valueOf(year)).child(strings.getMonths()[month-1]).child(String.valueOf(day)).child(timeString).getChildren();
+                                    String monthString = strings.getMonths()[month-1];
+                                    Iterable<DataSnapshot> items = dataSnapshot.child(String.valueOf(year)).child(monthString).child(String.valueOf(day)).child(timeString).getChildren();
                                     while(items.iterator().hasNext()) {
                                         DataSnapshot item = items.iterator().next();
                                         HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
+                                        String postID = item.getKey();
                                         if(filter.filterFull &&
                                                 (postMap.get("desiredNumPlayers").toString() == postMap.get("currentNumPlayers").toString())){
                                             continue;
@@ -114,9 +116,9 @@ public class PostsActivity extends AppCompatActivity {
                                         }
 
                                         postsList.add(new Post(postMap.get("category").toString(), postMap.get("game").toString(), hour, minute,
-                                                day,strings.getMonths()[month],year,postMap.get("city").toString(),postMap.get("userID").toString(),
+                                                day,monthString,year,postMap.get("city").toString(),postMap.get("userID").toString(),
                                                 postMap.get("currentNumPlayers").toString(),postMap.get("desiredNumPlayers").toString(),
-                                                postMap.get("description").toString(),postMap.get("user_name").toString()));
+                                                postMap.get("description").toString(),postMap.get("user_name").toString(),postID));
 
                                     }
                                 }
@@ -125,7 +127,7 @@ public class PostsActivity extends AppCompatActivity {
                         }
                         fromDay = 1;
                     }
-                    fromMonth = 0;
+                    fromMonth = 1;
                 }
                 postsRecyclerViewAdapter = new PostRecyclerViewAdapter(postsList);
                 postsRecyclerView.setAdapter(postsRecyclerViewAdapter);
@@ -144,40 +146,50 @@ public class PostsActivity extends AppCompatActivity {
         });
     }
     private void loadPostsAll(PostFilter filter){
-        loadPosts_internal("posts",dummyFilter);
+        loadPosts_internal("posts",filter);
     }
     private void loadPostsAttending(PostFilter filter){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        loadPosts_internal("users/"+userId+"/attending",dummyFilter);
+        loadPosts_internal("users/"+userId+"/attending",filter);
     }
     private void loadPostsCreated(PostFilter filter){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        loadPosts_internal("users/"+userId+"/created",dummyFilter);
+        loadPosts_internal("users/"+userId+"/created",filter);
     }
-    private void loadPostsHistory(PostFilter filter){
+    private void loadPostsHistory(PostFilter originalFilter){
+        PostFilter filter = new PostFilter();
+        if(originalFilter != null){
+            try{
+                filter = (PostFilter) originalFilter.clone();
+            }
+            catch (CloneNotSupportedException e) {}
+        }
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        loadPosts_internal("users/"+userId+"/history",dummyFilter);
+        filter.setCurrentDateAsEnd();
+        filter.setStartDateEarlierThanNowByMonths(3);
+        filter.setTimeAsAllDay();
+        loadPosts_internal("users/"+userId+"/attending",filter);
     }
     private void loadPostsRecommended(PostFilter filter){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        loadPosts_internal("users/"+userId+"/recommended",dummyFilter);
+        loadPosts_internal("users/"+userId+"/recommended",filter);
     }
     private void loadPostsCurrentTab(PostFilter filter){
         switch (currentTab){
             case R.id.navigation_all:
-                loadPostsAll(dummyFilter);
+                loadPostsAll(filter);
                 return;
             case R.id.navigation_attending:
-                loadPostsAttending(dummyFilter);
+                loadPostsAttending(filter);
                 return;
             case R.id.navigation_created:
-                loadPostsCreated(dummyFilter);
+                loadPostsCreated(filter);
                 return;
             case R.id.navigation_history:
-                loadPostsHistory(dummyFilter);
+                loadPostsHistory(null);
                 return;
             case R.id.navigation_recommended:
-                loadPostsRecommended(dummyFilter);
+                loadPostsRecommended(filter);
                 return;
             default:
                 Toast.makeText(getApplicationContext(), "no current tab set", Toast.LENGTH_SHORT).show();
@@ -208,7 +220,7 @@ public class PostsActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_recommended:
                     currentTab = R.id.navigation_recommended;
-                    loadPostsHistory(dummyFilter);
+                    loadPostsRecommended(dummyFilter);
                     return true;
                 default:
                     Toast.makeText(getApplicationContext(), "unexpected tab", Toast.LENGTH_SHORT).show();
@@ -261,6 +273,12 @@ public class PostsActivity extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
             }
         }));
+
+        //TODO: change dummy filter
+        dummyFilter = new PostFilter();
+        dummyFilter.setCurrentDateAsStart();
+        dummyFilter.setEndDateLaterThanNowByMonths(3);
+        dummyFilter.setTimeAsAllDay();
 
     }
 
