@@ -270,19 +270,6 @@ public class PostsActivity extends AppCompatActivity {
                 Intent intent = new Intent(PostsActivity.this, ViewPost.class);
                 intent.putExtra("Post", post);
 
-                //set canJoined
-//                switch(currentTab){
-//                    case R.id.navigation_all:
-//                    case R.id.navigation_recommended:
-//                        intent.putExtra("canJoin", true);
-//                        break;
-//                    case R.id.navigation_attending:
-//                    case R.id.navigation_created:
-//                    case R.id.navigation_history:
-//                        intent.putExtra("canJoin", false);
-//                        break;
-//                }
-
 
                 startActivity(intent);
 //                        Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();

@@ -133,7 +133,7 @@
         app:layout_constraintTop_toTopOf="@+id/TextView1" />
 
     <Button
-        android:id="@+id/joinButton"
+        android:id="@+id/joinLeaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -141,15 +141,6 @@
         app:layout_constraintEnd_toEndOf="@+id/descriptionTextView"
         app:layout_constraintStart_toStartOf="@+id/descriptionTextView"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
-
-    <Button
-        android:id="@+id/leaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Leave"
-        app:layout_constraintStart_toStartOf="@+id/joinButton"
-        app:layout_constraintTop_toBottomOf="@+id/joinButton" />
 
     <TextView
         android:id="@+id/textView2"

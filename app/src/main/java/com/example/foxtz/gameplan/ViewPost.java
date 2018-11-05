@@ -24,15 +24,15 @@ public class ViewPost extends AppCompatActivity {
         TextView players = findViewById(R.id.playersTextView);
         TextView description = findViewById(R.id.descriptionTextView);
 
-        Button join = findViewById(R.id.joinButton);
-        join.setOnClickListener(new View.OnClickListener() {
+        Button joinLeaveButton = findViewById(R.id.joinLeaveButton);
+        joinLeaveButton.setEnabled(false);
+        joinLeaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ViewPost.this, "TODO", Toast.LENGTH_SHORT).show();
             }
         });
-        Button leave = findViewById(R.id.leaveButton);
-        leave.setEnabled(false);
+
 
         Post post = (Post) getIntent().getSerializableExtra("Post");
 
