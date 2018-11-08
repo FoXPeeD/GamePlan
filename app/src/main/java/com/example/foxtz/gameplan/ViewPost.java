@@ -8,6 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ViewPost extends AppCompatActivity {
 
     @Override
@@ -25,6 +31,7 @@ public class ViewPost extends AppCompatActivity {
         TextView description = findViewById(R.id.descriptionTextView);
 
         Button joinLeaveButton = findViewById(R.id.joinLeaveButton);
+        joinLeaveButton.setText("loading");
         joinLeaveButton.setEnabled(false);
         joinLeaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,5 +51,23 @@ public class ViewPost extends AppCompatActivity {
         city.setText(post.getCity());
         players.setText(post.getCurrNumPlayers() + " out of " + post.getDesiredNumPlayers());
         description.setText(post.getDescription());
+
+        String dataTimeString = post.getDate() + "/" + post.getTime();//here
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference refPosts = database.getReference(dataTimeString);
+        refPosts.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+
+
+
 }
