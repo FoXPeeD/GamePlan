@@ -133,7 +133,7 @@
         app:layout_constraintTop_toTopOf="@+id/TextView1" />
 
     <Button
-        android:id="@+id/joinLeaveButton"
+        android:id="@+id/joinButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
