@@ -40,7 +40,7 @@ public class ViewPost extends AppCompatActivity {
             }
         });
 
-
+        //TODO: get data from DB
         Post post = (Post) getIntent().getSerializableExtra("Post");
 
         organizer.setText(post.getUserName());

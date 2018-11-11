@@ -268,8 +268,8 @@ public class PostsActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 Post post = postsList.get(position);
                 Intent intent = new Intent(PostsActivity.this, ViewPost.class);
+                //TODO: send a way to find the post (not the data itself)
                 intent.putExtra("Post", post);
-
 
                 startActivity(intent);
 //                        Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();

@@ -231,6 +231,7 @@ public class createPost extends AppCompatActivity {
                 refPost.child("description").setValue(description);
                 refPost.child("user_name").setValue(userName);
 
+                //TODO: save only post ID
                 //add post user as created
                 DatabaseReference refUser = database.getReference("users/"+userId);
                 DatabaseReference refCreatedTime = refUser.child("created/"+year+"/"+month+"/"+day+"/"+timeString);
@@ -244,6 +245,7 @@ public class createPost extends AppCompatActivity {
                 refCreatedPost.child("description").setValue(description);
                 refCreatedPost.child("user_name").setValue(userName);
 
+                //TODO: save only post ID
                 //add post user as attending
                 DatabaseReference refAttendingTime = refUser.child("attending/"+year+"/"+month+"/"+day+"/"+timeString);
                 DatabaseReference refAttendingPost = refAttendingTime.child(postKey);
