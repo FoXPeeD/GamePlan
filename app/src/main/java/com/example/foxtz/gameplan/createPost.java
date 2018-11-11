@@ -168,7 +168,7 @@ public class createPost extends AppCompatActivity {
         final EditText desiredNumPlayersText = findViewById(R.id.desiredPlayersEditTxt);
 
 //
-        final EditText descrptionText = findViewById(R.id.descriptionEditText);
+        final EditText descriptionText = findViewById(R.id.descriptionEditText);
 
         Button createButton = findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +178,7 @@ public class createPost extends AppCompatActivity {
                 //verify all text fields are not empty
                 if (currentNumPlayersText.getText().toString().matches("") ||
                         desiredNumPlayersText.getText().toString().matches("") ||
-                        descrptionText.getText().toString().matches("")){
+                        descriptionText.getText().toString().matches("")){
                     Toast.makeText(createPost.this, "Some of the fields are empty",
                             Toast.LENGTH_LONG).show();
                     return;
@@ -197,7 +197,7 @@ public class createPost extends AppCompatActivity {
                 String timeString = hour+":"+minute;
                 int currentNumPlayers = Integer.parseInt(currentNumPlayersText.getText().toString());
                 int desiredNumPlayers = Integer.parseInt(desiredNumPlayersText.getText().toString());
-                String description = descrptionText.getText().toString();
+                String description = descriptionText.getText().toString();
 
                 //verify all fields are valid
                 //TODO: make sure time is not is the past
