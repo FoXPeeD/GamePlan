@@ -43,6 +43,8 @@ public class PostsActivity extends AppCompatActivity {
 
     TextView loadingText;
 
+    String userId;
+
     private List<Post> postsList = new ArrayList<>();
     private int currentTab = R.string.title_all;
 
@@ -99,7 +101,7 @@ public class PostsActivity extends AppCompatActivity {
                                         HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
                                         String postID = item.getKey();
                                         if(filter.filterFull &&
-                                                (postMap.get("desiredNumPlayers").toString() == postMap.get("currentNumPlayers").toString())){
+                                                (postMap.get("desiredNumPlayers").toString().equals(postMap.get("currentNumPlayers").toString()))){
                                             continue;
                                         }
                                         if(filter.filterCategory &&
@@ -145,15 +147,20 @@ public class PostsActivity extends AppCompatActivity {
             }
         });
     }
-    private void loadPostsAll(PostFilter filter){
-        loadPosts_internal("posts",filter);
+    private void loadPostsAll(PostFilter originalFilter){
+        try{
+            PostFilter filter = (PostFilter) originalFilter.clone();
+            filter.setFilterFull();
+            loadPosts_internal("posts",filter);
+        }
+        catch (CloneNotSupportedException e) {}
+
     }
     private void loadPostsAttending(PostFilter filter){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         loadPosts_internal("users/"+userId+"/attending",filter);
     }
     private void loadPostsCreated(PostFilter filter){
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         loadPosts_internal("users/"+userId+"/created",filter);
     }
     private void loadPostsHistory(PostFilter originalFilter){
@@ -164,14 +171,12 @@ public class PostsActivity extends AppCompatActivity {
             }
             catch (CloneNotSupportedException e) {}
         }
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         filter.setCurrentDateAsEnd();
         filter.setStartDateEarlierThanNowByMonths(3);
         filter.setTimeAsAllDay();
         loadPosts_internal("users/"+userId+"/attending",filter);
     }
     private void loadPostsRecommended(PostFilter filter){
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         loadPosts_internal("users/"+userId+"/recommended",filter);
     }
     private void loadPostsCurrentTab(PostFilter filter){
@@ -251,6 +256,9 @@ public class PostsActivity extends AppCompatActivity {
             }
         });
 
+
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         currentTab = R.id.navigation_all;
@@ -269,10 +277,16 @@ public class PostsActivity extends AppCompatActivity {
                 Post post = postsList.get(position);
                 Intent intent = new Intent(PostsActivity.this, ViewPost.class);
                 intent.putExtra("Post", post);
-                if(currentTab == R.id.navigation_all){
+
+                if(currentTab == R.id.navigation_all && !post.getUserID().equals(userId)){
                     intent.putExtra("canJoin", true);
                 } else {
                     intent.putExtra("canJoin", false);
+                }
+                if(currentTab == R.id.navigation_history ){
+                    intent.putExtra("isHistory", true);
+                } else {
+                    intent.putExtra("isHistory", false);
                 }
 
 

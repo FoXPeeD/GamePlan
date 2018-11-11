@@ -28,10 +28,15 @@ public class ViewPost extends AppCompatActivity {
     TextView playersText;
     TextView descriptionText;
     Button joinButton;
+    TextView goingText;
+
     boolean canJoin;
+    boolean isHistory;
+    boolean isHosting;
     String dateTimePath;
     String postID;
     int desiredNumPlayers;
+    String userID;
 
 
 
@@ -48,17 +53,19 @@ public class ViewPost extends AppCompatActivity {
         cityText = findViewById(R.id.cityTextView);
         playersText = findViewById(R.id.playersTextView);
         descriptionText = findViewById(R.id.descriptionTextView);
+        goingText = findViewById(R.id.goingText);
+        goingText.setTextSize(32);
 
         joinButton = findViewById(R.id.joinButton);
         joinButton.setText("loading");
         joinButton.setEnabled(false);
         joinButton.setVisibility(View.GONE);
+        goingText.setVisibility(View.GONE);
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //updating user's attending posts with new post
-                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference refPostAll = database.getReference("posts/" + dateTimePath + "/" + postID);
                 DatabaseReference refPostUser = database.getReference("users/" + userID + "/attending/" + dateTimePath + "/" + postID);
@@ -88,8 +95,11 @@ public class ViewPost extends AppCompatActivity {
         });
 
         Post post = (Post) getIntent().getSerializableExtra("Post");
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        isHosting = post.getUserID().equals(userID);
         desiredNumPlayers = post.getDesiredNumPlayers();
-        canJoin = getIntent().getBooleanExtra("canJoin",true);
+        canJoin = getIntent().getBooleanExtra("canJoin",false);
+        isHistory = getIntent().getBooleanExtra("isHistory",false);
         showPostDataFromDB(post);
         setJoinButtonStatus(canJoin);
     }
@@ -137,9 +147,23 @@ public class ViewPost extends AppCompatActivity {
             joinButton.setEnabled(true);
             joinButton.setVisibility(View.VISIBLE);
         } else {
-            joinButton.setText("going");
             joinButton.setEnabled(false);
             joinButton.setVisibility(View.GONE); // View.INVISIBLE reserves space for the item
+
+            goingText.setVisibility(View.VISIBLE);
+            if(isHosting){
+                if(isHistory){
+                    goingText.setText("You hosted this event");
+                } else {
+                    goingText.setText("You are hosting this event");
+                }
+            } else {
+                if(isHistory){
+                    goingText.setText("You attended this event");
+                } else {
+                    goingText.setText("Attending");
+                }
+            }
         }
     }
 
@@ -151,8 +175,10 @@ public class ViewPost extends AppCompatActivity {
                     @Override
                     public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
                         if (firebaseError != null) {
+                            Toast.makeText(ViewPost.this, "Copy failed", Toast.LENGTH_SHORT).show();
                             System.out.println("Copy failed");
                         } else {
+                            Toast.makeText(ViewPost.this, "Copy success", Toast.LENGTH_SHORT).show();
                             System.out.println("Success");
 
                         }
