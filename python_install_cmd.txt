@@ -1,0 +1,8 @@
+pip install requests==1.1.0
+pip install python-firebase
+
+install scikit-learn
+*this sould also install NumPy and SciPy
+
+*upgrading pip can't hurt
+python -m pip install --upgrade pip
