@@ -21,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 public class createPost extends AppCompatActivity {
 
     String userName = "N/A";
+    int age = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,7 +218,8 @@ public class createPost extends AppCompatActivity {
 
                 //preper database reference
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference refTime = database.getReference("posts/"+year+"/"+month+"/"+day+"/"+timeString);
+                String dateTimeString = year+"/"+month+"/"+day+"/"+timeString;
+                DatabaseReference refTime = database.getReference("posts/" + dateTimeString);
                 String postKey = refTime.push().getKey(); //new empty post is created here
                 DatabaseReference refPost = refTime.child(postKey);
 
@@ -230,31 +233,34 @@ public class createPost extends AppCompatActivity {
                 refPost.child("currentNumPlayers").setValue(currentNumPlayers);
                 refPost.child("description").setValue(description);
                 refPost.child("user_name").setValue(userName);
+                refPost.child("host_age").setValue(age);
 
                 //add post user as created
                 DatabaseReference refUser = database.getReference("users/"+userId);
-                DatabaseReference refCreatedTime = refUser.child("created/"+year+"/"+month+"/"+day+"/"+timeString);
+                DatabaseReference refCreatedTime = refUser.child("created/" + dateTimeString);
                 DatabaseReference refCreatedPost = refCreatedTime.child(postKey);
-                refCreatedPost.child("category").setValue(category);
-                refCreatedPost.child("game").setValue(game);
-                refCreatedPost.child("userID").setValue(userId);
-                refCreatedPost.child("city").setValue(city);
-                refCreatedPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
-                refCreatedPost.child("currentNumPlayers").setValue(currentNumPlayers);
-                refCreatedPost.child("description").setValue(description);
-                refCreatedPost.child("user_name").setValue(userName);
+                copyAtDB(refPost,refCreatedPost);
+//                refCreatedPost.child("category").setValue(category);
+//                refCreatedPost.child("game").setValue(game);
+//                refCreatedPost.child("userID").setValue(userId);
+//                refCreatedPost.child("city").setValue(city);
+//                refCreatedPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
+//                refCreatedPost.child("currentNumPlayers").setValue(currentNumPlayers);
+//                refCreatedPost.child("description").setValue(description);
+//                refCreatedPost.child("user_name").setValue(userName);
 
                 //add post user as attending
-                DatabaseReference refAttendingTime = refUser.child("attending/"+year+"/"+month+"/"+day+"/"+timeString);
+                DatabaseReference refAttendingTime = refUser.child("attending/" + dateTimeString);
                 DatabaseReference refAttendingPost = refAttendingTime.child(postKey);
-                refAttendingPost.child("category").setValue(category);
-                refAttendingPost.child("game").setValue(game);
-                refAttendingPost.child("userID").setValue(userId);
-                refAttendingPost.child("city").setValue(city);
-                refAttendingPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
-                refAttendingPost.child("currentNumPlayers").setValue(currentNumPlayers);
-                refAttendingPost.child("description").setValue(description);
-                refAttendingPost.child("user_name").setValue(userName);
+                copyAtDB(refPost,refAttendingPost);
+//                refAttendingPost.child("category").setValue(category);
+//                refAttendingPost.child("game").setValue(game);
+//                refAttendingPost.child("userID").setValue(userId);
+//                refAttendingPost.child("city").setValue(city);
+//                refAttendingPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
+//                refAttendingPost.child("currentNumPlayers").setValue(currentNumPlayers);
+//                refAttendingPost.child("description").setValue(description);
+//                refAttendingPost.child("user_name").setValue(userName);
 
 
                 //TODO: remove and return to previous activity
@@ -264,11 +270,13 @@ public class createPost extends AppCompatActivity {
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference refName = database.getReference("users/" + userId + "/user_name");
+        DatabaseReference refName = database.getReference("users/" + userId);
         refName.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                userName = dataSnapshot.getValue().toString();
+//                userName = dataSnapshot.getValue().toString();
+                userName = dataSnapshot.child("user_name").getValue().toString();
+                age = Integer.valueOf(dataSnapshot.child("age").getValue().toString());
 //                Toast.makeText(createPost.this, "user name is " + userName, Toast.LENGTH_SHORT).show();
             }
 
@@ -278,4 +286,30 @@ public class createPost extends AppCompatActivity {
             }
         });
     }
+
+    private void copyAtDB(final DatabaseReference fromPath, final DatabaseReference toPath) {
+        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                        if (firebaseError != null) {
+                            Toast.makeText(createPost.this, "Copy failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Toast.makeText(createPost.this, "Copy success", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
+
+
