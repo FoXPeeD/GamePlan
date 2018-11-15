@@ -266,7 +266,7 @@ public class createPost extends AppCompatActivity {
 
 
                 //TODO: remove and return to previous activity
-                //Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();
             }
         });
 
