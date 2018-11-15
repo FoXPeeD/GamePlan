@@ -71,6 +71,9 @@ public class ViewPost extends AppCompatActivity {
                 DatabaseReference refPostUser = database.getReference("users/" + userID + "/attending/" + dateTimePath + "/" + postID);
                 copyAtDB(refPostAll,refPostUser);
 
+                //add userID to list of attending users
+                //refPostAll.child("joined").child(userID).setValue(true);
+
                 //update number of current players in original post (at DB) and on this activity
                 final DatabaseReference refPlayersNum = refPostAll.child("currentNumPlayers");
                 refPlayersNum.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -100,15 +103,16 @@ public class ViewPost extends AppCompatActivity {
         desiredNumPlayers = post.getDesiredNumPlayers();
         canJoin = getIntent().getBooleanExtra("canJoin",false);
         isHistory = getIntent().getBooleanExtra("isHistory",false);
+
+        String date = String.valueOf(post.getYear()) + "/" + post.getMonth() + "/" +  String.valueOf(post.getDay());
+        String time = post.getTime();
+        dateTimePath = date + "/" + time;
+        postID = post.getId();
         showPostDataFromDB(post);
         setJoinButtonStatus(canJoin);
     }
 
     public void showPostDataFromDB(final Post post){
-        String date = String.valueOf(post.getYear()) + "/" + post.getMonth() + "/" +  String.valueOf(post.getDay());
-        String time = post.getTime();
-        dateTimePath = date + "/" + time;
-        postID = post.getId();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference refPost = database.getReference("posts/" + dateTimePath + "/" + postID);
         refPost.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -140,31 +144,43 @@ public class ViewPost extends AppCompatActivity {
             }
         });
     }
-    public void setJoinButtonStatus(Boolean canJoin){
-
-        if(canJoin){
-            joinButton.setText("Join");
-            joinButton.setEnabled(true);
-            joinButton.setVisibility(View.VISIBLE);
-        } else {
-            joinButton.setEnabled(false);
-            joinButton.setVisibility(View.GONE); // View.INVISIBLE reserves space for the item
-
-            goingText.setVisibility(View.VISIBLE);
-            if(isHosting){
-                if(isHistory){
-                    goingText.setText("You hosted this event");
+    public void setJoinButtonStatus(final Boolean canJoin){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference refPost = database.getReference("users/" + userID + "/attending/" + dateTimePath + "/" + postID);
+        refPost.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(canJoin && !dataSnapshot.exists()){
+                    joinButton.setText("Join");
+                    joinButton.setEnabled(true);
+                    joinButton.setVisibility(View.VISIBLE);
                 } else {
-                    goingText.setText("You are hosting this event");
-                }
-            } else {
-                if(isHistory){
-                    goingText.setText("You attended this event");
-                } else {
-                    goingText.setText("Attending");
+                    joinButton.setEnabled(false);
+                    joinButton.setVisibility(View.GONE); // View.INVISIBLE reserves space for the item
+
+                    goingText.setVisibility(View.VISIBLE);
+                    if(isHosting){
+                        if(isHistory){
+                            goingText.setText("You hosted this event");
+                        } else {
+                            goingText.setText("You are hosting this event");
+                        }
+                    } else {
+                        if(isHistory){
+                            goingText.setText("You attended this event");
+                        } else {
+                            goingText.setText("Attending");
+                        }
+                    }
                 }
             }
-        }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void copyAtDB(final DatabaseReference fromPath, final DatabaseReference toPath) {

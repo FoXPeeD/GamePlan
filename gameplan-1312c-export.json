@@ -1,137 +1,15 @@
 {
   "posts" : {
     "2018" : {
-      "Aug" : [ null, {
-        "00:00" : {
-          "-LRN_rYbUzSYbPFbb5vO" : {
-            "category" : "Ball Games",
-            "city" : "Haifa",
-            "currentNumPlayers" : 2,
-            "description" : "ksksk",
-            "desiredNumPlayers" : 7,
-            "game" : "Soccer",
-            "host_age" : 44,
-            "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-            "user_name" : "z@z.mm"
-          }
-        }
-      } ],
-      "Jan" : [ null, {
-        "00:00" : {
-          "-LR71zGmbPKvmh2nlKVQ" : {
-            "category" : "Ball Games",
-            "city" : "Haifa",
-            "currentNumPlayers" : 5,
-            "description" : "copy test",
-            "desiredNumPlayers" : 9,
-            "game" : "Soccer",
-            "host_age" : 44,
-            "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-            "user_name" : "z@z.mm"
-          }
-        }
-      } ],
-      "Jul" : [ null, {
-        "00:00" : {
-          "-LRNXXdMZV2h3rQACjZO" : {
-            "category" : "Ball Games",
-            "city" : "Haifa",
-            "currentNumPlayers" : 5,
-            "description" : "ysuei",
-            "desiredNumPlayers" : 33,
-            "game" : "Soccer",
-            "host_age" : 44,
-            "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-            "user_name" : "z@z.mm"
-          }
-        }
-      } ],
-      "May" : [ null, {
-        "00:00" : {
-          "-LRNnK44InqRovLJ08vn" : {
-            "category" : "Ball Games",
-            "city" : "Haifa",
-            "currentNumPlayers" : 3,
-            "description" : "sad",
-            "desiredNumPlayers" : 4,
-            "game" : "Soccer",
-            "host_age" : 44,
-            "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-            "user_name" : "z@z.mm"
-          }
-        }
-      } ],
-      "Nov" : {
-        "11" : {
-          "22:15" : {
-            "-LR3MhBuwj4Qo2FLA8V2" : {
-              "category" : "Workout",
+      "Jul" : {
+        "01" : {
+          "00:00" : {
+            "-LRNyMKc1M966xAe3LPD" : {
+              "category" : "Ball Games",
               "city" : "Haifa",
-              "currentNumPlayers" : 6,
-              "description" : "jsk",
+              "currentNumPlayers" : 5,
+              "description" : "jsks",
               "desiredNumPlayers" : 6,
-              "game" : "Spinning",
-              "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-              "user_name" : "z@z.mm"
-            }
-          }
-        },
-        "13" : {
-          "00:00" : {
-            "-LQPYVORG8Rphr4QCl0q" : {
-              "category" : "Ball Games",
-              "city" : "Haifa",
-              "currentNumPlayers" : 6,
-              "description" : "future zz",
-              "desiredNumPlayers" : 6,
-              "game" : "Soccer",
-              "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-              "user_name" : "z@z.mm"
-            }
-          }
-        },
-        "28" : {
-          "00:00" : {
-            "-LR3A8ih7U0f1NscBYIJ" : {
-              "category" : "Video Games",
-              "city" : "Haifa",
-              "currentNumPlayers" : 3,
-              "description" : "usjs",
-              "desiredNumPlayers" : 9,
-              "game" : "Overwatch",
-              "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-              "user_name" : "z@z.mm"
-            }
-          }
-        }
-      },
-      "Sep" : {
-        "9" : {
-          "14:30" : {
-            "-LQPHVC6GeINa6DbSETT" : {
-              "category" : "Ball Games",
-              "city" : "Haifa",
-              "currentNumPlayers" : 1,
-              "description" : "history zz",
-              "desiredNumPlayers" : 2,
-              "game" : "Soccer",
-              "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-              "user_name" : "z@z.mm"
-            }
-          }
-        }
-      }
-    },
-    "2019" : {
-      "Apr" : {
-        "3" : {
-          "00:00" : {
-            "-LRNarTEjzoh5xh2Ckmn" : {
-              "category" : "Ball Games",
-              "city" : "Haifa",
-              "currentNumPlayers" : 23,
-              "description" : "aslk",
-              "desiredNumPlayers" : 43,
               "game" : "Soccer",
               "host_age" : 44,
               "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
@@ -140,21 +18,38 @@
           }
         }
       },
-      "Jan" : [ null, {
-        "00:00" : {
-          "-LRNaRy0EhJuKng9sQPB" : {
-            "category" : "Ball Games",
-            "city" : "Haifa",
-            "currentNumPlayers" : 23,
-            "description" : "aslk",
-            "desiredNumPlayers" : 43,
-            "game" : "Soccer",
-            "host_age" : 44,
-            "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-            "user_name" : "z@z.mm"
+      "Nov" : {
+        "15" : {
+          "00:00" : {
+            "-LRNyQubW0XIjOhPdccZ" : {
+              "category" : "Ball Games",
+              "city" : "Haifa",
+              "currentNumPlayers" : 6,
+              "description" : "hskso",
+              "desiredNumPlayers" : 6,
+              "game" : "Soccer",
+              "host_age" : 44,
+              "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
+              "user_name" : "z@z.mm"
+            }
+          }
+        },
+        "16" : {
+          "00:00" : {
+            "-LRNz1NVodMSRX9Nn5I0" : {
+              "category" : "Ball Games",
+              "city" : "Haifa",
+              "currentNumPlayers" : 3,
+              "description" : "jdj",
+              "desiredNumPlayers" : 6,
+              "game" : "Basketball",
+              "host_age" : 45,
+              "userID" : "CEphnEaDLuWnjgQUsuSj40AutoC3",
+              "user_name" : "k@k.mm"
+            }
           }
         }
-      } ]
+      }
     }
   },
   "test" : {
@@ -167,45 +62,33 @@
       "attending" : {
         "2018" : {
           "Nov" : {
-            "11" : {
-              "22:15" : {
-                "-LR3MhBuwj4Qo2FLA8V2" : {
-                  "category" : "Workout",
-                  "city" : "Haifa",
-                  "currentNumPlayers" : 5,
-                  "description" : "jsk",
-                  "desiredNumPlayers" : 6,
-                  "game" : "Spinning",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
-                }
-              }
-            },
-            "13" : {
+            "15" : {
               "00:00" : {
-                "-LQPYVORG8Rphr4QCl0q" : {
+                "-LRNyQubW0XIjOhPdccZ" : {
                   "category" : "Ball Games",
                   "city" : "Haifa",
                   "currentNumPlayers" : 5,
-                  "description" : "future zz",
+                  "description" : "hskso",
                   "desiredNumPlayers" : 6,
                   "game" : "Soccer",
+                  "host_age" : 44,
                   "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
                   "user_name" : "z@z.mm"
                 }
               }
             },
-            "28" : {
+            "16" : {
               "00:00" : {
-                "-LR3A8ih7U0f1NscBYIJ" : {
-                  "category" : "Video Games",
+                "-LRNz1NVodMSRX9Nn5I0" : {
+                  "category" : "Ball Games",
                   "city" : "Haifa",
                   "currentNumPlayers" : 2,
-                  "description" : "usjs",
-                  "desiredNumPlayers" : 9,
-                  "game" : "Overwatch",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
+                  "description" : "jdj",
+                  "desiredNumPlayers" : 6,
+                  "game" : "Basketball",
+                  "host_age" : 45,
+                  "userID" : "CEphnEaDLuWnjgQUsuSj40AutoC3",
+                  "user_name" : "k@k.mm"
                 }
               }
             }
@@ -213,143 +96,42 @@
         }
       },
       "city" : "Eilat",
+      "created" : {
+        "2018" : {
+          "Nov" : {
+            "16" : {
+              "00:00" : {
+                "-LRNz1NVodMSRX9Nn5I0" : {
+                  "category" : "Ball Games",
+                  "city" : "Haifa",
+                  "currentNumPlayers" : 2,
+                  "description" : "jdj",
+                  "desiredNumPlayers" : 6,
+                  "game" : "Basketball",
+                  "host_age" : 45,
+                  "userID" : "CEphnEaDLuWnjgQUsuSj40AutoC3",
+                  "user_name" : "k@k.mm"
+                }
+              }
+            }
+          }
+        }
+      },
       "user_name" : "k@k.mm"
     },
     "FHFSk6QE9HXCILYoQE9F1eX7fvI2" : {
       "age" : 44,
       "attending" : {
         "2018" : {
-          "Aug" : [ null, {
-            "00:00" : {
-              "-LRN_rYbUzSYbPFbb5vO" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 2,
-                "description" : "ksksk",
-                "desiredNumPlayers" : 7,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
-              }
-            }
-          } ],
-          "Jan" : [ null, {
-            "00:00" : {
-              "-LR71zGmbPKvmh2nlKVQ" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 5,
-                "description" : "copy test",
-                "desiredNumPlayers" : 9,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
-              }
-            }
-          } ],
-          "Jul" : [ null, {
-            "00:00" : {
-              "-LRNXXdMZV2h3rQACjZO" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 5,
-                "description" : "ysuei",
-                "desiredNumPlayers" : 33,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
-              }
-            }
-          } ],
-          "May" : [ null, {
-            "00:00" : {
-              "-LRNnK44InqRovLJ08vn" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 3,
-                "description" : "sad",
-                "desiredNumPlayers" : 4,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
-              }
-            }
-          } ],
-          "Nov" : {
-            "11" : {
-              "22:15" : {
-                "-LR3MhBuwj4Qo2FLA8V2" : {
-                  "category" : "Workout",
-                  "city" : "Haifa",
-                  "currentNumPlayers" : 2,
-                  "description" : "jsk",
-                  "desiredNumPlayers" : 6,
-                  "game" : "Spinning",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
-                }
-              }
-            },
-            "13" : {
+          "Jul" : {
+            "01" : {
               "00:00" : {
-                "-LQPYVORG8Rphr4QCl0q" : {
+                "-LRNyMKc1M966xAe3LPD" : {
                   "category" : "Ball Games",
                   "city" : "Haifa",
                   "currentNumPlayers" : 5,
-                  "description" : "future zz",
+                  "description" : "jsks",
                   "desiredNumPlayers" : 6,
-                  "game" : "Soccer",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
-                }
-              }
-            },
-            "28" : {
-              "00:00" : {
-                "-LR3A8ih7U0f1NscBYIJ" : {
-                  "category" : "Video Games",
-                  "city" : "Haifa",
-                  "currentNumPlayers" : 2,
-                  "description" : "usjs",
-                  "desiredNumPlayers" : 9,
-                  "game" : "Overwatch",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
-                }
-              }
-            }
-          },
-          "Sep" : {
-            "9" : {
-              "14:30" : {
-                "-LQPHVC6GeINa6DbSETT" : {
-                  "category" : "Ball Games",
-                  "city" : "Haifa",
-                  "currentNumPlayers" : 1,
-                  "description" : "history zz",
-                  "desiredNumPlayers" : 2,
-                  "game" : "Soccer",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
-                }
-              }
-            }
-          }
-        },
-        "2019" : {
-          "Apr" : {
-            "3" : {
-              "00:00" : {
-                "-LRNarTEjzoh5xh2Ckmn" : {
-                  "category" : "Ball Games",
-                  "city" : "Haifa",
-                  "currentNumPlayers" : 23,
-                  "description" : "aslk",
-                  "desiredNumPlayers" : 43,
                   "game" : "Soccer",
                   "host_age" : 44,
                   "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
@@ -358,157 +140,52 @@
               }
             }
           },
-          "Jan" : [ null, {
-            "00:00" : {
-              "-LRNaRy0EhJuKng9sQPB" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 23,
-                "description" : "aslk",
-                "desiredNumPlayers" : 43,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
+          "Nov" : {
+            "15" : {
+              "00:00" : {
+                "-LRNyQubW0XIjOhPdccZ" : {
+                  "category" : "Ball Games",
+                  "city" : "Haifa",
+                  "currentNumPlayers" : 5,
+                  "description" : "hskso",
+                  "desiredNumPlayers" : 6,
+                  "game" : "Soccer",
+                  "host_age" : 44,
+                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
+                  "user_name" : "z@z.mm"
+                }
+              }
+            },
+            "16" : {
+              "00:00" : {
+                "-LRNz1NVodMSRX9Nn5I0" : {
+                  "category" : "Ball Games",
+                  "city" : "Haifa",
+                  "currentNumPlayers" : 2,
+                  "description" : "jdj",
+                  "desiredNumPlayers" : 6,
+                  "game" : "Basketball",
+                  "host_age" : 45,
+                  "userID" : "CEphnEaDLuWnjgQUsuSj40AutoC3",
+                  "user_name" : "k@k.mm"
+                }
               }
             }
-          } ]
+          }
         }
       },
       "city" : "Haifa",
       "created" : {
         "2018" : {
-          "Aug" : [ null, {
-            "00:00" : {
-              "-LRN_rYbUzSYbPFbb5vO" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 2,
-                "description" : "ksksk",
-                "desiredNumPlayers" : 7,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
-              }
-            }
-          } ],
-          "Jan" : [ null, {
-            "00:00" : {
-              "-LR71zGmbPKvmh2nlKVQ" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 5,
-                "description" : "copy test",
-                "desiredNumPlayers" : 9,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
-              }
-            }
-          } ],
-          "Jul" : [ null, {
-            "00:00" : {
-              "-LRNXXdMZV2h3rQACjZO" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 5,
-                "description" : "ysuei",
-                "desiredNumPlayers" : 33,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
-              }
-            }
-          } ],
-          "May" : [ null, {
-            "00:00" : {
-              "-LRNnK44InqRovLJ08vn" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 3,
-                "description" : "sad",
-                "desiredNumPlayers" : 4,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
-              }
-            }
-          } ],
-          "Nov" : {
-            "11" : {
-              "22:15" : {
-                "-LR3MhBuwj4Qo2FLA8V2" : {
-                  "category" : "Workout",
-                  "city" : "Haifa",
-                  "currentNumPlayers" : 2,
-                  "description" : "jsk",
-                  "desiredNumPlayers" : 6,
-                  "game" : "Spinning",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
-                }
-              }
-            },
-            "13" : {
+          "Jul" : {
+            "01" : {
               "00:00" : {
-                "-LQPYVORG8Rphr4QCl0q" : {
+                "-LRNyMKc1M966xAe3LPD" : {
                   "category" : "Ball Games",
                   "city" : "Haifa",
                   "currentNumPlayers" : 5,
-                  "description" : "future zz",
+                  "description" : "jsks",
                   "desiredNumPlayers" : 6,
-                  "game" : "Soccer",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
-                }
-              }
-            },
-            "28" : {
-              "00:00" : {
-                "-LR3A8ih7U0f1NscBYIJ" : {
-                  "category" : "Video Games",
-                  "city" : "Haifa",
-                  "currentNumPlayers" : 2,
-                  "description" : "usjs",
-                  "desiredNumPlayers" : 9,
-                  "game" : "Overwatch",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
-                }
-              }
-            }
-          },
-          "Sep" : {
-            "9" : {
-              "14:30" : {
-                "-LQPHVC6GeINa6DbSETT" : {
-                  "category" : "Ball Games",
-                  "city" : "Haifa",
-                  "currentNumPlayers" : 1,
-                  "description" : "history zz",
-                  "desiredNumPlayers" : 2,
-                  "game" : "Soccer",
-                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                  "user_name" : "z@z.mm"
-                }
-              }
-            }
-          }
-        },
-        "2019" : {
-          "Apr" : {
-            "3" : {
-              "00:00" : {
-                "-LRNarTEjzoh5xh2Ckmn" : {
-                  "category" : "Ball Games",
-                  "city" : "Haifa",
-                  "currentNumPlayers" : 23,
-                  "description" : "aslk",
-                  "desiredNumPlayers" : 43,
                   "game" : "Soccer",
                   "host_age" : 44,
                   "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
@@ -517,21 +194,23 @@
               }
             }
           },
-          "Jan" : [ null, {
-            "00:00" : {
-              "-LRNaRy0EhJuKng9sQPB" : {
-                "category" : "Ball Games",
-                "city" : "Haifa",
-                "currentNumPlayers" : 23,
-                "description" : "aslk",
-                "desiredNumPlayers" : 43,
-                "game" : "Soccer",
-                "host_age" : 44,
-                "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
-                "user_name" : "z@z.mm"
+          "Nov" : {
+            "15" : {
+              "00:00" : {
+                "-LRNyQubW0XIjOhPdccZ" : {
+                  "category" : "Ball Games",
+                  "city" : "Haifa",
+                  "currentNumPlayers" : 5,
+                  "description" : "hskso",
+                  "desiredNumPlayers" : 6,
+                  "game" : "Soccer",
+                  "host_age" : 44,
+                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
+                  "user_name" : "z@z.mm"
+                }
               }
             }
-          } ]
+          }
         }
       },
       "user_name" : "z@z.mm"

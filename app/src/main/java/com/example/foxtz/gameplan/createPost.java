@@ -218,9 +218,10 @@ public class createPost extends AppCompatActivity {
 
                 //prepare database reference
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                String dateTimeString = year+ "/" + month + "/" + day + "/" + timeString;
+                String leadingZeroDay = String.format("%02d", Integer.valueOf(day));
+                String dateTimeString = year+ "/" + month + "/" + leadingZeroDay + "/" + timeString;
                 DatabaseReference refTime = database.getReference("posts/" + dateTimeString);
-                //Toast.makeText(createPost.this, String.format("%02d", day), Toast.LENGTH_LONG).show();
+
                 String postKey = refTime.push().getKey(); //new empty post is created here
                 DatabaseReference refPost = refTime.child(postKey);
 
