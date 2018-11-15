@@ -216,10 +216,11 @@ public class createPost extends AppCompatActivity {
                     return;
                 }
 
-                //preper database reference
+                //prepare database reference
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                String dateTimeString = year+"/"+month+"/"+day+"/"+timeString;
+                String dateTimeString = year+ "/" + month + "/" + day + "/" + timeString;
                 DatabaseReference refTime = database.getReference("posts/" + dateTimeString);
+                //Toast.makeText(createPost.this, String.format("%02d", day), Toast.LENGTH_LONG).show();
                 String postKey = refTime.push().getKey(); //new empty post is created here
                 DatabaseReference refPost = refTime.child(postKey);
 
@@ -264,7 +265,7 @@ public class createPost extends AppCompatActivity {
 
 
                 //TODO: remove and return to previous activity
-                Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();
             }
         });
 
