@@ -11,15 +11,15 @@ AGE_WEIGHT = 1
 NUM_PLAYERS_WEIGHT = 1
 
 dayOfWeekEnum = {v: k for k,v in enumerate(calendar.month_abbr)}
-ballGamesList = []  #TODO
+ballGamesList = ['Soccer', 'Football', 'Basketball', 'Foosball', 'Tennis']
 ballGamesEnum = {v: k for k,v in enumerate(ballGamesList)}
-BoardGamesList = []  #TODO
+BoardGamesList = ['Overwatch', 'League Of Legends', 'Call Of Duty', 'Fortnite']
 BoardGamesEnum = {v: k for k,v in enumerate(BoardGamesList)}
-VideoGamesList = []  #TODO
+VideoGamesList = ['Catan', 'Clue', 'Risk', 'Talisman', 'Monopoly']
 VideoGamesEnum = {v: k for k,v in enumerate(VideoGamesList)}
-workoutList = []  #TODO
+workoutList = ['Spinning', 'Zumba', 'Bicycling', 'Yoga']
 workoutEnum = {v: k for k,v in enumerate(workoutList)}
-citiesList = []  #TODO
+citiesList = ['Haifa', 'Tel-Aviv', 'Jerusalem', 'Netanya', 'Beer-sheva', 'Eilat', 'Nahariya', 'Qiryat-shemona']
 citiesEnum = {v: k for k,v in enumerate(citiesList)}
 
 
