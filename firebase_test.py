@@ -19,6 +19,8 @@ VideoGamesList = []  #TODO
 VideoGamesEnum = {v: k for k,v in enumerate(VideoGamesList)}
 workoutList = []  #TODO
 workoutEnum = {v: k for k,v in enumerate(workoutList)}
+citiesList = []  #TODO
+citiesEnum = {v: k for k,v in enumerate(citiesList)}
 
 
 def timeToValue(time):
@@ -69,9 +71,13 @@ def main(argv):
     usersRawData = {}
 
     for userId,userData in users.items():
+
         usersRawData[userId] = {}
         usersRawData[userId]['timeList'] = []
         usersRawData[userId]['dayOfWeekList'] = []
+        usersRawData[userId]['ageList'] = []
+        usersRawData[userId]['numPlayersList'] = []
+
         attendingPosts = userData["attending"]
         for year,yearData in attendingPosts.items():
             for month,monthData in yearData.items():
