@@ -79,12 +79,13 @@ public class PostsActivity extends AppCompatActivity {
                 int toHour = filter.toHour;
                 int fromMinutes = filter.fromMinutes;
                 int toMinutes = 45;
+                Toast.makeText(PostsActivity.this, dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
                 for(int year = fromYear; year <= toYear ; year++) {
                     if(year == toYear){
                         toMonth = filter.toMonth;
                     }
                     for (int month = fromMonth; month <= toMonth; month++) {
-                        if(month == toMonth){
+                        if(month == toMonth && year == toYear){
                             toDay = filter.toDay;
                         }
                         for (int day = fromDay; day <= toDay; day++) {
@@ -96,10 +97,12 @@ public class PostsActivity extends AppCompatActivity {
                                     String timeString = String.format("%02d", hour) + ":" + String.format("%02d", minute);
                                     String monthString = strings.getMonths()[month-1];
                                     Iterable<DataSnapshot> items = dataSnapshot.child(String.valueOf(year)).child(monthString).child(String.valueOf(day)).child(timeString).getChildren();
+//                                    if(year == 2019 && month == 1 && day == 1)
                                     while(items.iterator().hasNext()) {
                                         DataSnapshot item = items.iterator().next();
                                         HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
                                         String postID = item.getKey();
+                                        Toast.makeText(PostsActivity.this, postID, Toast.LENGTH_SHORT).show();
                                         if(filter.filterFull &&
                                                 (postMap.get("desiredNumPlayers").toString().equals(postMap.get("currentNumPlayers").toString()))){
                                             continue;
@@ -154,13 +157,13 @@ public class PostsActivity extends AppCompatActivity {
             loadPosts_internal("posts",filter);
         }
         catch (CloneNotSupportedException e) {}
-
     }
     private void loadPostsAttending(PostFilter filter){
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         loadPosts_internal("users/"+userId+"/attending",filter);
     }
     private void loadPostsCreated(PostFilter filter){
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         loadPosts_internal("users/"+userId+"/created",filter);
     }
     private void loadPostsHistory(PostFilter originalFilter){
@@ -176,8 +179,13 @@ public class PostsActivity extends AppCompatActivity {
         filter.setTimeAsAllDay();
         loadPosts_internal("users/"+userId+"/attending",filter);
     }
-    private void loadPostsRecommended(PostFilter filter){
-        loadPosts_internal("users/"+userId+"/recommended",filter);
+    private void loadPostsRecommended(PostFilter originalFilter){
+        try{
+            PostFilter filter = (PostFilter) originalFilter.clone();
+            filter.setFilterFull();
+            loadPosts_internal("users/"+userId+"/recommended",filter);
+        }
+        catch (CloneNotSupportedException e) {}
     }
     private void loadPostsCurrentTab(PostFilter filter){
         switch (currentTab){
@@ -246,7 +254,7 @@ public class PostsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_posts);
         loadingText = findViewById(R.id.loadingTextView);
         loadingText.setTextSize(24);
-
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

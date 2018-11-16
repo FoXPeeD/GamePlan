@@ -187,13 +187,22 @@ def main(argv):
                 continue
             print (postData['userID'])
             post = postsInfoList[index]
+            if post['year']     not in recommendedPosts:
+                recommendedPosts[post['year']] = {}
+            if post['month']  not in recommendedPosts[post['year']]:
+                recommendedPosts[post['year']][post['month']] = {}
+            if post['day']    not in recommendedPosts[post['year']][post['month']]:
+                recommendedPosts[post['year']][post['month']][post['day']] = {}
+            if post['time']   not in recommendedPosts[post['year']][post['month']][post['day']]:
+                recommendedPosts[post['year']][post['month']][post['day']][post['time']] = {}
+
             recommendedPosts[post['year']][post['month']][post['day']][post['time']][post['postId']] = {
                 'category':postData['category'],
                 'game':postData['game'],
                 'userID':postData['userID']}
 
-        print recommendedPosts
-        # firebase.put('users/' + userId,'recommended',recommendedPosts)
+        # print recommendedPosts
+        firebase.put('users/' + userId,'recommended',recommendedPosts)
 
 if __name__ == '__main__':
 	main(sys.argv)
