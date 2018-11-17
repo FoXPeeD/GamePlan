@@ -79,7 +79,6 @@ public class PostsActivity extends AppCompatActivity {
                 int toHour = filter.toHour;
                 int fromMinutes = filter.fromMinutes;
                 int toMinutes = 45;
-                Toast.makeText(PostsActivity.this, dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
                 for(int year = fromYear; year <= toYear ; year++) {
                     if(year == toYear){
                         toMonth = filter.toMonth;
@@ -96,8 +95,12 @@ public class PostsActivity extends AppCompatActivity {
                                 for (int minute = fromMinutes; minute <= toMinutes; minute += 15) {
                                     String timeString = String.format("%02d", hour) + ":" + String.format("%02d", minute);
                                     String monthString = strings.getMonths()[month-1];
-                                    Iterable<DataSnapshot> items = dataSnapshot.child(String.valueOf(year)).child(monthString).child(String.valueOf(day)).child(timeString).getChildren();
-//                                    if(year == 2019 && month == 1 && day == 1)
+                                    Iterable<DataSnapshot> items = dataSnapshot
+                                            .child(String.valueOf(year))
+                                            .child(monthString)
+                                            .child(String.format("%02d", day))
+                                            .child(timeString)
+                                            .getChildren();
                                     while(items.iterator().hasNext()) {
                                         DataSnapshot item = items.iterator().next();
                                         HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
@@ -296,9 +299,6 @@ public class PostsActivity extends AppCompatActivity {
                 } else {
                     intent.putExtra("isHistory", false);
                 }
-
-
-
                 startActivity(intent);
 //                        Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
             }

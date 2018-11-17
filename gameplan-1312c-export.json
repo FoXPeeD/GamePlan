@@ -1,6 +1,23 @@
 {
   "posts" : {
     "2018" : {
+      "Jan" : {
+        "01" : {
+          "07:30" : {
+            "-LROPxyD8rvFPbHrTsRE" : {
+              "category" : "Ball Games",
+              "city" : "Haifa",
+              "currentNumPlayers" : 5,
+              "description" : "gshs",
+              "desiredNumPlayers" : 33,
+              "game" : "Soccer",
+              "host_age" : 44,
+              "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
+              "user_name" : "z@z.mm"
+            }
+          }
+        }
+      },
       "Jul" : {
         "01" : {
           "00:00" : {
@@ -50,11 +67,26 @@
           }
         }
       }
+    },
+    "2019" : {
+      "Jan" : {
+        "01" : {
+          "08:15" : {
+            "-LRS1uYjKtlzJ7_SRKHc" : {
+              "category" : "Workout",
+              "city" : "Haifa",
+              "currentNumPlayers" : 5,
+              "description" : "xvj",
+              "desiredNumPlayers" : 33,
+              "game" : "Spinning",
+              "host_age" : 44,
+              "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
+              "user_name" : "z@z.mm"
+            }
+          }
+        }
+      }
     }
-  },
-  "test" : {
-    "akey" : "avalue",
-    "bkey" : "bvalue"
   },
   "users" : {
     "CEphnEaDLuWnjgQUsuSj40AutoC3" : {
@@ -117,12 +149,44 @@
           }
         }
       },
+      "recommended" : {
+        "2019" : {
+          "Jan" : {
+            "01" : {
+              "08:15" : {
+                "-LRS1uYjKtlzJ7_SRKHc" : {
+                  "category" : "Workout",
+                  "game" : "Spinning",
+                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2"
+                }
+              }
+            }
+          }
+        }
+      },
       "user_name" : "k@k.mm"
     },
     "FHFSk6QE9HXCILYoQE9F1eX7fvI2" : {
       "age" : 44,
       "attending" : {
         "2018" : {
+          "Jan" : {
+            "01" : {
+              "07:30" : {
+                "-LROPxyD8rvFPbHrTsRE" : {
+                  "category" : "Ball Games",
+                  "city" : "Haifa",
+                  "currentNumPlayers" : 5,
+                  "description" : "gshs",
+                  "desiredNumPlayers" : 33,
+                  "game" : "Soccer",
+                  "host_age" : 44,
+                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
+                  "user_name" : "z@z.mm"
+                }
+              }
+            }
+          },
           "Jul" : {
             "01" : {
               "00:00" : {
@@ -172,11 +236,47 @@
               }
             }
           }
+        },
+        "2019" : {
+          "Jan" : {
+            "01" : {
+              "08:15" : {
+                "-LRS1uYjKtlzJ7_SRKHc" : {
+                  "category" : "Workout",
+                  "city" : "Haifa",
+                  "currentNumPlayers" : 5,
+                  "description" : "xvj",
+                  "desiredNumPlayers" : 33,
+                  "game" : "Spinning",
+                  "host_age" : 44,
+                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
+                  "user_name" : "z@z.mm"
+                }
+              }
+            }
+          }
         }
       },
       "city" : "Haifa",
       "created" : {
         "2018" : {
+          "Jan" : {
+            "01" : {
+              "07:30" : {
+                "-LROPxyD8rvFPbHrTsRE" : {
+                  "category" : "Ball Games",
+                  "city" : "Haifa",
+                  "currentNumPlayers" : 5,
+                  "description" : "gshs",
+                  "desiredNumPlayers" : 33,
+                  "game" : "Soccer",
+                  "host_age" : 44,
+                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
+                  "user_name" : "z@z.mm"
+                }
+              }
+            }
+          },
           "Jul" : {
             "01" : {
               "00:00" : {
@@ -204,6 +304,25 @@
                   "description" : "hskso",
                   "desiredNumPlayers" : 6,
                   "game" : "Soccer",
+                  "host_age" : 44,
+                  "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
+                  "user_name" : "z@z.mm"
+                }
+              }
+            }
+          }
+        },
+        "2019" : {
+          "Jan" : {
+            "01" : {
+              "08:15" : {
+                "-LRS1uYjKtlzJ7_SRKHc" : {
+                  "category" : "Workout",
+                  "city" : "Haifa",
+                  "currentNumPlayers" : 5,
+                  "description" : "xvj",
+                  "desiredNumPlayers" : 33,
+                  "game" : "Spinning",
                   "host_age" : 44,
                   "userID" : "FHFSk6QE9HXCILYoQE9F1eX7fvI2",
                   "user_name" : "z@z.mm"

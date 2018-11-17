@@ -104,7 +104,7 @@ public class ViewPost extends AppCompatActivity {
         canJoin = getIntent().getBooleanExtra("canJoin",false);
         isHistory = getIntent().getBooleanExtra("isHistory",false);
 
-        String date = String.valueOf(post.getYear()) + "/" + post.getMonth() + "/" +  String.valueOf(post.getDay());
+        String date = String.valueOf(post.getYear()) + "/" + post.getMonth() + "/" +  String.format("%02d", post.getDay());
         String time = post.getTime();
         dateTimePath = date + "/" + time;
         postID = post.getId();
@@ -120,9 +120,6 @@ public class ViewPost extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, Object> postMap = (HashMap<String, Object>) dataSnapshot.getValue();
                 String postID = dataSnapshot.getKey();
-
-
-                //Toast.makeText(ViewPost.this, post.getDate(), Toast.LENGTH_SHORT).show();
                 Post fullPost = new Post(postMap.get("category").toString(), postMap.get("game").toString(), post.getHour(), post.getMinutes(),
                         post.getDay(), post.getMonth(), post.getYear(), postMap.get("city").toString(), postMap.get("userID").toString(),
                         postMap.get("currentNumPlayers").toString(), postMap.get("desiredNumPlayers").toString(),
