@@ -27,6 +27,7 @@
         <item>League Of Legends</item>
         <item>Call Of Duty</item>
         <item>Fortnite</item>
+        <item>Mario Cart</item>
     </string-array>
 
     <string-array name="board_games_array">
@@ -42,6 +43,7 @@
         <item>Zumba</item>
         <item>Bicycling</item>
         <item>Yoga</item>
+        <item>Running</item>
     </string-array>
 
     <string-array name="years_array">
