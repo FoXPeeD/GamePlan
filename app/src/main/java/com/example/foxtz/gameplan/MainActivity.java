@@ -1,6 +1,8 @@
 package com.example.foxtz.gameplan;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         Button signup = findViewById(R.id.signupID);
         final EditText emailField = findViewById(R.id.emailID);
         final EditText passwordField = findViewById(R.id.passwordID);
-
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override

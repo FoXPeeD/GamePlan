@@ -64,7 +64,7 @@
         android:id="@+id/TextView1"
         android:layout_width="65dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:text="Organizer"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,50 +72,51 @@
 
     <TextView
         android:id="@+id/organizerTextView"
-        android:layout_width="65dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
+        android:layout_marginTop="2dp"
         app:layout_constraintStart_toEndOf="@+id/TextView1"
         app:layout_constraintTop_toTopOf="@+id/TextView1" />
 
     <TextView
         android:id="@+id/gameTextView"
-        android:layout_width="65dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/organizerTextView"
         app:layout_constraintTop_toTopOf="@+id/TextView2" />
 
     <TextView
         android:id="@+id/categoryTextView"
-        android:layout_width="100dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/organizerTextView"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/dateTextView"
-        android:layout_width="100dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/organizerTextView"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/timeTextView"
-        android:layout_width="65dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/organizerTextView"
         app:layout_constraintTop_toTopOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/cityTextView"
-        android:layout_width="65dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/organizerTextView"
         app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/playersTextView"
-        android:layout_width="65dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/organizerTextView"
         app:layout_constraintTop_toTopOf="@+id/textView7" />

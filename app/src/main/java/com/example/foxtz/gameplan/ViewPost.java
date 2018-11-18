@@ -189,10 +189,10 @@ public class ViewPost extends AppCompatActivity {
                     public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
                         if (firebaseError != null) {
                             Toast.makeText(ViewPost.this, "Copy failed", Toast.LENGTH_SHORT).show();
-                            System.out.println("Copy failed");
+//                            System.out.println("Copy failed");
                         } else {
-                            Toast.makeText(ViewPost.this, "Copy success", Toast.LENGTH_SHORT).show();
-                            System.out.println("Success");
+//                            Toast.makeText(ViewPost.this, "Copy success", Toast.LENGTH_SHORT).show();
+//                            System.out.println("Success");
 
                         }
                     }
