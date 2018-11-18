@@ -734,7 +734,7 @@
               "currentNumPlayers" : 1,
               "description" : "n/a",
               "desiredNumPlayers" : 2,
-              "game" : "Bicycling",
+              "game" : "Cycling",
               "host_age" : 49,
               "userID" : "000003@a.com",
               "user_name" : "000003@a.com"
@@ -1428,7 +1428,7 @@
                   "currentNumPlayers" : 1,
                   "description" : "n/a",
                   "desiredNumPlayers" : 2,
-                  "game" : "Bicycling",
+                  "game" : "Cycling",
                   "host_age" : 49,
                   "userID" : "000003@a.com",
                   "user_name" : "000003@a.com"
@@ -1520,7 +1520,7 @@
                   "currentNumPlayers" : 1,
                   "description" : "n/a",
                   "desiredNumPlayers" : 2,
-                  "game" : "Bicycling",
+                  "game" : "Cycling",
                   "host_age" : 49,
                   "userID" : "000003@a.com",
                   "user_name" : "000003@a.com"

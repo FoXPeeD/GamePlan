@@ -1,6 +1,7 @@
 import sys
 from random import randint
 import calendar
+import datetime
 
 
 NUM_USERS_TO_CREATE = 10
@@ -12,11 +13,11 @@ WORK_OFFLINE_DATA = True
 # monthEnum = {v: k for k,v in enumerate(calendar.month_abbr)}
 ballGamesList = ['Soccer', 'Football', 'Basketball', 'Foosball', 'Tennis']
 # ballGamesEnum = {v: k for k,v in enumerate(ballGamesList)}
-videoGamesList = ['Overwatch', 'League Of Legends', 'Call Of Duty', 'Fortnite', 'Mario Cart']
+videoGamesList = ['Overwatch', 'League Of Legends', 'Call Of Duty', 'Fortnite', 'Mario Kart']
 # videoGamesEnum = {v: k for k,v in enumerate(videoGamesList)}
 boardGamesList = ['Catan', 'Clue', 'Risk', 'Talisman', 'Monopoly']
 # boardGamesEnum = {v: k for k,v in enumerate(boardGamesList)}
-workoutList = ['Spinning', 'Zumba', 'Bicycling', 'Yoga', 'Running']
+workoutList = ['Spinning', 'Zumba', 'Cycling', 'Yoga', 'Running']
 # workoutEnum = {v: k for k,v in enumerate(workoutList)}
 citiesList = ['Haifa', 'Tel-Aviv', 'Jerusalem', 'Netanya', 'Beer-sheva', 'Eilat', 'Nahariya', 'Qiryat-shemona']
 # citiesEnum = {v: k for k,v in enumerate(citiesList)}
@@ -53,16 +54,42 @@ MAX_GAME = 4
 MIN_DESIRED_PLAYERS = 2
 MAX_DESIRED_PLAYERS = 20
 
+def createMidDicts(year,monthStr,day,timeStr,dict):
+    if year     not in dict:
+        dict[year] = {}
+    if monthStr not in dict[year]:
+        dict[year][monthStr] = {}
+    if day      not in dict[year][monthStr]:
+        dict[year][monthStr][day] = {}
+    if timeStr  not in dict[year][monthStr][day]:
+        dict[year][monthStr][day][timeStr] = {}
+
+startTime = datetime.datetime.now()
+tempTime = startTime
+def startTimer():
+    startTime = datetime.datetime.now()
+    tempTime = startTime
+
+def timePassed(stepStr = ''):
+    took = datetime.datetime.now() - tempTime
+    print 'took ' + str(took) + ' for ' + stepStr
+
+def timeTotal():
+    took = datetime.datetime.now() - startTime
+    print 'script took ' + str(took) + ' in total'
 
 
 def main(argv):
+    startTimer()
     from firebase import firebase
     firebase = firebase.FirebaseApplication('https://gameplan-1312c.firebaseio.com/', None)
     usersPath = 'users'
     if WORK_OFFLINE_DATA:
         usersPath = 'offlineUsers'
 
+
     users = {}
+    allPosts = {}
     for userNum in range(NUM_USERS_TO_CREATE):
 
         nickname = '{:06d}'.format(userNum)
@@ -83,17 +110,20 @@ def main(argv):
             time = randint(MIN_TIME,MAX_TIME)
             timeStr = timeValueToString(time)
 
-            if year     not in created:
-                created[year] = {}
-            if monthStr not in created[year]:
-                created[year][monthStr] = {}
-            if day      not in created[year][monthStr]:
-                created[year][monthStr][day] = {}
-            if timeStr  not in created[year][monthStr][day]:
-                created[year][monthStr][day][timeStr] = {}
+            createMidDicts(year,monthStr,day,timeStr,created)
+            # if year     not in created:
+            #     created[year] = {}
+            # if monthStr not in created[year]:
+            #     created[year][monthStr] = {}
+            # if day      not in created[year][monthStr]:
+            #     created[year][monthStr][day] = {}
+            # if timeStr  not in created[year][monthStr][day]:
+            #     created[year][monthStr][day][timeStr] = {}
             postKey = getPostKey(nickname,numPost)
             created[year][monthStr][day][timeStr][postKey] = {}
             post = created[year][monthStr][day][timeStr][postKey]
+
+
 
             categoryNum = randint(MIN_CATEGORY,MAX_CATEGORY)
             category = categoryList[categoryNum]
@@ -113,35 +143,36 @@ def main(argv):
             post['user_name'] = user['user_name']
             post['userID'] = user['user_name']
 
+            #copy post to all posts
+            createMidDicts(year,monthStr,day,timeStr,allPosts)
+            allPosts[year][monthStr][day][timeStr][postKey] = post
+
             #copy posts to attending
         user['attending'] = user['created']
 
-
-    postsPath = 'posts'
-    if WORK_OFFLINE_DATA:
-        postsPath = 'offlinePosts'
-
-    for userKey,userData in users.items():
-        firebase.put(usersPath,userKey,userData)
-        userPosts = userData['attending']
-        for year,yearData in userPosts.items():
-            for month,monthData in yearData.items():
-                for day,dayData in monthData.items():
-                    for time,timeData in dayData.items():
-                        for postKey,postData in timeData.items():
-                            dateTimePath = str(year) + '/' + month + '/' + day + '/' + time
-                            firebase.put(postsPath + '/' + dateTimePath,postKey,postData)
+    timePassed('creating users and their posts')
 
 
+    postsPath = 'offlinePosts'
+    if not WORK_OFFLINE_DATA:
+        postsPath = 'posts'
+        for userKey,userData in users.items():
+            firebase.put(usersPath,userKey,userData)
+            userPosts = userData['attending']
+            for year,yearData in userPosts.items():
+                for month,monthData in yearData.items():
+                    for day,dayData in monthData.items():
+                        for time,timeData in dayData.items():
+                            for postKey,postData in timeData.items():
+                                dateTimePath = str(year) + '/' + month + '/' + day + '/' + time
+                                firebase.put(postsPath + '/' + dateTimePath,postKey,postData)
+        timePassed('writing to DB')
+    else:
+        firebase.put('/',postsPath,allPosts)
+        firebase.put('/',usersPath,users)
+        timePassed('writing to DB')
 
-
-                            #
-    # for key,data in users.items():
-    #    print key + ': '
-    #    print (data)
-
-
-
+    timeTotal()
 
 if __name__ == '__main__':
     main(sys.argv)

@@ -6,7 +6,8 @@ from sklearn.neighbors import NearestNeighbors
 
 WORK_OFFLINE_DATA = True
 
-NUM_OF_KNEIGHBORS = 2
+NUM_OF_KNEIGHBORS = 5
+
 TIME_WEIGHT = 1
 DAY_WEIGHT = 1
 GAME_WEIGHT = 10
@@ -18,11 +19,11 @@ NUM_PLAYERS_WEIGHT = 1
 monthEnum = {v: k for k,v in enumerate(calendar.month_abbr)}
 ballGamesList = ['Soccer', 'Football', 'Basketball', 'Foosball', 'Tennis']
 ballGamesEnum = {v: k for k,v in enumerate(ballGamesList)}
-videoGamesList = ['Overwatch', 'League Of Legends', 'Call Of Duty', 'Fortnite', 'Mario Cart']
+videoGamesList = ['Overwatch', 'League Of Legends', 'Call Of Duty', 'Fortnite', 'Mario Kart']
 videoGamesEnum = {v: k for k,v in enumerate(videoGamesList)}
 boardGamesList = ['Catan', 'Clue', 'Risk', 'Talisman', 'Monopoly']
 boardGamesEnum = {v: k for k,v in enumerate(boardGamesList)}
-workoutList = ['Spinning', 'Zumba', 'Bicycling', 'Yoga', 'Running']
+workoutList = ['Spinning', 'Zumba', 'Cycling', 'Yoga', 'Running']
 workoutEnum = {v: k for k,v in enumerate(workoutList)}
 citiesList = ['Haifa', 'Tel-Aviv', 'Jerusalem', 'Netanya', 'Beer-sheva', 'Eilat', 'Nahariya', 'Qiryat-shemona']
 citiesEnum = {v: k for k,v in enumerate(citiesList)}
@@ -75,9 +76,22 @@ def isUserAttending(x,postID, userID, usersRawData):
     else:
         return False
 
+startTime = datetime.datetime.now()
+tempTime = startTime
+def startTimer():
+    startTime = datetime.datetime.now()
+    tempTime = startTime
+
+def timePassed(stepStr = ''):
+    took = datetime.datetime.now() - tempTime
+    print stepStr + ' took ' + str(took) + ' seconds'
+
+def timeTotal():
+    took = datetime.datetime.now() - startTime
+    print 'script took ' + str(took) + ' seconds in total'
 
 def main(argv):
-
+    startTimer()
 ##import DB from file
     # import json
     # with open("gameplan-1312c-export.json", 'r') as f:
@@ -124,7 +138,8 @@ def main(argv):
         usersAvgData[userId].append(most_common(usersRawData[userId]['categoryList']) * CATEGORY_WEIGHT)
         usersAvgData[userId].append(most_common(usersRawData[userId]['gameList']) * GAME_WEIGHT)
         usersAvgData[userId].append(most_common(usersRawData[userId]['cityList']) * CITY_WEIGHT)
-    print ('finished processing users')
+    # print ('finished processing users')
+    timePassed('processing users')
 
 
 
@@ -179,15 +194,17 @@ def main(argv):
                                               categoryNum,
                                               gameToValue(postData['game'],categoryNum),
                                               cityToValue(postData['city'])])
-                        print(postsInfoList)
+                        # print(postsInfoList)
 
     # print (postsArray)
-    print ('finished processing posts')
+    # print ('finished processing posts')
+    timePassed('processing posts')
 
     ########calculate Nearest Neighbors###########
     neigh = NearestNeighbors(algorithm='auto', metric='minkowski')
     print ('training...')
     neigh.fit(postsArray)
+    timePassed('training')
 
 
     print ('finding knn for each user...')
@@ -197,7 +214,7 @@ def main(argv):
 
         recommendedPosts = {}
         nearest = neigh.kneighbors([avgPost], NUM_OF_KNEIGHBORS, return_distance=False)
-        print('for user ' + str(userId) + ': ' + str(nearest))
+        # print('for user ' + str(userId) + ': ' + str(nearest))
         indexes = []
         for index in nearest[0]:
             indexes.append(int(index))
@@ -229,9 +246,21 @@ def main(argv):
                 'userID':post['userID']}
 
         # print recommendedPosts
-        firebase.put(usersPath + '/' + userId,'recommended',recommendedPosts)
+        if WORK_OFFLINE_DATA:
+            users[userId]['recommended'] = recommendedPosts
+        else:
+            firebase.put(usersPath + '/' + userId,'recommended',recommendedPosts)
 
-    print ('done!')
+
+    timePassed('finding nearest neighbors')
+
+    if WORK_OFFLINE_DATA:
+        firebase.put('/',usersPath,users)
+
+    timePassed('writing to DB')
+    timeTotal()
+
+    # print ('done!')
 
 if __name__ == '__main__':
 	main(sys.argv)
