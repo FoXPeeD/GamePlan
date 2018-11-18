@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -133,6 +134,7 @@ public class ViewPost extends AppCompatActivity {
                 cityText.setText(fullPost.getCity());
                 playersText.setText(fullPost.getCurrNumPlayers() + " out of " + fullPost.getDesiredNumPlayers());
                 descriptionText.setText(fullPost.getDescription());
+                showBackgroundImage(fullPost.getGame());
 
             }
             @Override
@@ -205,6 +207,78 @@ public class ViewPost extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    public void showBackgroundImage(String game){
+        int drawable = R.drawable.lol;
+        switch (game){
+            case "Soccer":
+                drawable = R.drawable.soccer_back;
+                break;
+            case "Football":
+                drawable = R.drawable.football_back;
+                break;
+            case "Basketball":
+                drawable = R.drawable.basketball_back;
+                break;
+            case "Foosball":
+                drawable = R.drawable.foosball_back;
+                break;
+            case "Tennis":
+                drawable = R.drawable.tennis_back;
+                break;
+            case "Catan":
+                drawable = R.drawable.catan_back;
+                break;
+            case "Clue":
+                drawable = R.drawable.clue_back;
+                break;
+            case "Risk":
+                drawable = R.drawable.risk_back;
+                break;
+            case "Talisman":
+                drawable = R.drawable.talisman_back;
+                break;
+            case "Monopoly":
+                drawable = R.drawable.monopoly_back;
+                break;
+            case "Spinning":
+                drawable = R.drawable.spinning_back;
+                break;
+            case "Zumba":
+                drawable = R.drawable.zumba_back;
+                break;
+            case "Cycling":
+                drawable = R.drawable.cycling_back;
+                break;
+            case "Yoga":
+                drawable = R.drawable.yoga_back;
+                break;
+            case "Running":
+                drawable = R.drawable.running_back;
+                break;
+            case "Overwatch":
+                drawable = R.drawable.overwatch_back;
+                break;
+            case "League Of Legends":
+                drawable = R.drawable.lol_back;
+                break;
+            case "Call Of Duty":
+                drawable = R.drawable.cod_back;
+                break;
+            case "Fortnite":
+                drawable = R.drawable.fortnite_back;
+                break;
+            case "Mario Kart":
+                drawable = R.drawable.mario_back;
+                break;
+            default:
+                drawable = R.drawable.bg;
+                break;
+        }
+        ImageView image = findViewById(R.id.backImage);
+        image.setImageResource(drawable);
     }
 
 
