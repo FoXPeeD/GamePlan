@@ -1,9 +1,12 @@
 package com.example.foxtz.gameplan;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -15,6 +18,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView game, time, category, date;
+        public ImageView image;
 
         public MyViewHolder(View view) {
             super(view);
@@ -22,6 +26,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
             category = view.findViewById(R.id.category);
             time = view.findViewById(R.id.time);
             date = view.findViewById(R.id.date);
+            image = view.findViewById(R.id.image);
         }
     }
 
@@ -44,6 +49,73 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
         holder.category.setText(post.getCategory());
         holder.time.setText(String.valueOf(post.getTime()));
         holder.date.setText(String.valueOf(post.getDate()));
+        int drawable = R.drawable.lol;
+        switch (post.getGame()){
+            case "Soccer":
+                drawable = R.drawable.soccer;
+                break;
+            case "Football":
+                drawable = R.drawable.football;
+                break;
+            case "Basketball":
+                drawable = R.drawable.basketball;
+                break;
+            case "Foosball":
+                drawable = R.drawable.foosball;
+                break;
+            case "Tennis":
+                drawable = R.drawable.tennis;
+                break;
+            case "Catan":
+                drawable = R.drawable.catan;
+                break;
+            case "Clue":
+                drawable = R.drawable.clue;
+                break;
+            case "Risk":
+                drawable = R.drawable.risk;
+                break;
+            case "Talisman":
+                drawable = R.drawable.talisman;
+                break;
+            case "Monopoly":
+                drawable = R.drawable.monopoly;
+                break;
+            case "Spinning":
+                drawable = R.drawable.spinning;
+                break;
+            case "Zumba":
+                drawable = R.drawable.zumba;
+                break;
+            case "Cycling":
+                drawable = R.drawable.cycling;
+                break;
+            case "Yoga":
+                drawable = R.drawable.yoga;
+                break;
+            case "Running":
+                drawable = R.drawable.run;
+                break;
+            case "Overwatch":
+                drawable = R.drawable.overwatch;
+                break;
+            case "League Of Legends":
+                drawable = R.drawable.lol;
+                break;
+            case "Call Of Duty":
+                drawable = R.drawable.cod;
+                break;
+            case "Fortnite":
+                drawable = R.drawable.fortnite;
+                break;
+            case "Mario Kart":
+                drawable = R.drawable.mario;
+                break;
+            default:
+                drawable = R.drawable.bg;
+                break;
+        }
+        holder.image.setImageResource(drawable);
     }
 
     @Override
