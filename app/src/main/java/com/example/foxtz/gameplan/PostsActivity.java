@@ -105,7 +105,6 @@ public class PostsActivity extends AppCompatActivity {
                                         DataSnapshot item = items.iterator().next();
                                         HashMap<String, Object> postMap = (HashMap<String, Object>) item.getValue();
                                         String postID = item.getKey();
-                                        Toast.makeText(PostsActivity.this, postID, Toast.LENGTH_SHORT).show();
                                         if(filter.filterFull &&
                                                 (postMap.get("desiredNumPlayers").toString().equals(postMap.get("currentNumPlayers").toString()))){
                                             continue;
@@ -300,7 +299,6 @@ public class PostsActivity extends AppCompatActivity {
                     intent.putExtra("isHistory", false);
                 }
                 startActivity(intent);
-//                        Toast.makeText(getApplicationContext(), post.getGame() + " is selected!", Toast.LENGTH_SHORT).show();
             }
         }));
 
