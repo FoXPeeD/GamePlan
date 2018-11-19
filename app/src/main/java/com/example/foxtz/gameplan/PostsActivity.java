@@ -249,7 +249,6 @@ public class PostsActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager postsLayoutManager;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
