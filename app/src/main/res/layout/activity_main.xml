@@ -12,61 +12,57 @@
         android:id="@+id/emailID"
         android:layout_width="wrap_content"
         android:layout_height="46dp"
-        android:layout_marginTop="350dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/passwordID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.158" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/passwordID"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/signinID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailID" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/signupID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginBottom="64dp"
         android:background="@drawable/custom_button"
         android:text="sign up"
         android:textColor="@color/action_bar_icons"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signinID" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/signinID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="64dp"
         android:background="@drawable/custom_button"
         android:text="sign in"
         android:textColor="@color/action_bar_icons"
+        app:layout_constraintBottom_toTopOf="@+id/signupID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordID" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="271dp"
-        android:layout_height="277dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="269dp"
+        android:layout_height="236dp"
+        android:foregroundGravity="center"
         app:layout_constraintBottom_toTopOf="@+id/emailID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
