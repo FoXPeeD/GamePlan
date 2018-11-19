@@ -27,7 +27,6 @@ public class createPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
-        getSupportActionBar().setTitle("New com.example.foxtz.gameplan.Post");
 
         //category spinner init
         final Spinner categorySpinner = findViewById(R.id.categorySpinner);
@@ -265,8 +264,8 @@ public class createPost extends AppCompatActivity {
 //                refAttendingPost.child("user_name").setValue(userName);
 
 
-                //TODO: remove and return to previous activity
                 Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
