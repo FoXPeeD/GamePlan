@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.joda.time.DateTime;
+
 public class createPost extends AppCompatActivity {
 
     String userName = "N/A";
@@ -201,7 +203,6 @@ public class createPost extends AppCompatActivity {
                 String description = descriptionText.getText().toString();
 
                 //verify all fields are valid
-                //TODO: make sure time is not is the past
                 if(currentNumPlayers <= 0){
                     Toast.makeText(createPost.this, "Current number of players" +
                                     " need to be at least 1 (including you)",
@@ -211,6 +212,24 @@ public class createPost extends AppCompatActivity {
                 if(desiredNumPlayers <= currentNumPlayers){
                     Toast.makeText(createPost.this, "Desired number of players" +
                                     " need to be less than current number of players",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                DateTime today = new org.joda.time.DateTime();
+                int thisYear = today.getYear();
+                int thisMonth = today.getMonthOfYear();
+                int thisDay = today.getDayOfMonth();
+                StringsClass strings = new StringsClass();
+                String monthsList[] = strings.getMonths();
+                int monthInt = 0;
+                for (int i = 0; i < monthsList.length; i++){
+                    if(monthsList[i].equals(month)){
+                        monthInt = i+1;
+                    }
+                }
+                if((thisYear >= Integer.valueOf(year)) && (thisMonth >= monthInt) && (thisDay > Integer.valueOf(day))){
+                    Toast.makeText(createPost.this, "Invalid date",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -241,28 +260,11 @@ public class createPost extends AppCompatActivity {
                 DatabaseReference refCreatedTime = refUser.child("created/" + dateTimeString);
                 DatabaseReference refCreatedPost = refCreatedTime.child(postKey);
                 copyAtDB(refPost,refCreatedPost);
-//                refCreatedPost.child("category").setValue(category);
-//                refCreatedPost.child("game").setValue(game);
-//                refCreatedPost.child("userID").setValue(userId);
-//                refCreatedPost.child("city").setValue(city);
-//                refCreatedPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
-//                refCreatedPost.child("currentNumPlayers").setValue(currentNumPlayers);
-//                refCreatedPost.child("description").setValue(description);
-//                refCreatedPost.child("user_name").setValue(userName);
 
                 //add post user as attending
                 DatabaseReference refAttendingTime = refUser.child("attending/" + dateTimeString);
                 DatabaseReference refAttendingPost = refAttendingTime.child(postKey);
                 copyAtDB(refPost,refAttendingPost);
-//                refAttendingPost.child("category").setValue(category);
-//                refAttendingPost.child("game").setValue(game);
-//                refAttendingPost.child("userID").setValue(userId);
-//                refAttendingPost.child("city").setValue(city);
-//                refAttendingPost.child("desiredNumPlayers").setValue(desiredNumPlayers);
-//                refAttendingPost.child("currentNumPlayers").setValue(currentNumPlayers);
-//                refAttendingPost.child("description").setValue(description);
-//                refAttendingPost.child("user_name").setValue(userName);
-
 
                 Toast.makeText(createPost.this, "post created", Toast.LENGTH_SHORT).show();
                 finish();
