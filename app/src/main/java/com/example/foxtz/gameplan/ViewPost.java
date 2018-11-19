@@ -1,6 +1,8 @@
 package com.example.foxtz.gameplan;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -86,6 +88,8 @@ public class ViewPost extends AppCompatActivity {
                         joinButton.setEnabled(false);
                         joinButton.setText("going");
                         playersText.setText(currentPlayers + " out of " + desiredNumPlayers);
+                        joinButton.setBackground(getDrawable(R.drawable.custom_button_pressed));
+                        joinButton.setTextColor(getResources().getColor(R.color.pressedGrey));
                     }
 
                     @Override

@@ -11,6 +11,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="action_bar_main">#FF4081</color>
     <color name="action_bar_icons">#FFFFFF</color>
+    <color name="pressedGrey">#aaaaaa</color>
 
     <color name="time">#555555</color>
     <color name="game">#222222</color>
