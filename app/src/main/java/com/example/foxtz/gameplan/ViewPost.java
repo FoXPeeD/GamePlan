@@ -211,7 +211,7 @@ public class ViewPost extends AppCompatActivity {
 
 
     public void showBackgroundImage(String game){
-        int drawable = R.drawable.lol;
+        int drawable = R.drawable.bg;
         switch (game){
             case "Soccer":
                 drawable = R.drawable.soccer_back;
@@ -272,9 +272,6 @@ public class ViewPost extends AppCompatActivity {
                 break;
             case "Mario Kart":
                 drawable = R.drawable.mario_back;
-                break;
-            default:
-                drawable = R.drawable.bg;
                 break;
         }
         ImageView image = findViewById(R.id.backImage);
