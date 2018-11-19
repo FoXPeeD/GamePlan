@@ -46,7 +46,6 @@
         android:text="sign up"
         android:textColor="@color/action_bar_icons"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signinID" />
 
