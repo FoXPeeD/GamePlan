@@ -8,10 +8,10 @@
         android:title="Filter" />
 
 
-    <item android:id="@+id/action_filter"
-        android:icon="@drawable/ic_outline_filter_list_24px"
-        app:showAsAction="ifRoom"
-        android:title="Filter" />
+    <!--<item android:id="@+id/action_filter"-->
+        <!--android:icon="@drawable/ic_outline_filter_list_24px"-->
+        <!--app:showAsAction="ifRoom"-->
+        <!--android:title="Filter" />-->
 
 
 

@@ -337,10 +337,8 @@ public class PostsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_filter:
-                //TODO: call intent and update posts accordingly
-
-                return true;
+//            case R.id.action_filter://
+//                return true;
 
             case R.id.action_reload:
                 loadPostsCurrentTab(dummyFilter);

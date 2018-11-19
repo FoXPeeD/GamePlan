@@ -4,6 +4,9 @@
     <!--<color name="colorPrimaryDark">#303f9f</color>-->
     <color name="colorPrimary">#ba000d</color>
     <color name="colorPrimaryDark">#ba000d</color>
+    <color name="buttonSecondary">#900000</color>
+    <!--<color name="buttonPrimary">#ef2c27</color>-->
+    <color name="buttonPrimary">#e82a26</color>
     <!--<color name="colorPrimaryDark">#ba000d</color>-->
     <color name="colorAccent">#FF4081</color>
     <color name="action_bar_main">#FF4081</color>
@@ -11,4 +14,5 @@
 
     <color name="time">#555555</color>
     <color name="game">#222222</color>
+    <color name="blackish">#222222</color>
 </resources>

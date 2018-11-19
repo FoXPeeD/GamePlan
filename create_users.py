@@ -4,10 +4,10 @@ import calendar
 import datetime
 
 
-NUM_USERS_TO_CREATE = 100
+NUM_USERS_TO_CREATE = 10000
 NUM_POSTS_PER_USER = 5
 
-WORK_OFFLINE_DATA = False
+WORK_OFFLINE_DATA = True
 
 
 # monthEnum = {v: k for k,v in enumerate(calendar.month_abbr)}
