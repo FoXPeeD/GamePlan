@@ -72,6 +72,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_speech_bubbles" />
+        app:srcCompat="@drawable/logo_speech_bubbles_name_flipped" />
 
 </android.support.constraint.ConstraintLayout>
