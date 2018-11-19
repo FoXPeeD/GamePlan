@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().hide();
         Button signin = findViewById(R.id.signinID);
         Button signup = findViewById(R.id.signupID);
         final EditText emailField = findViewById(R.id.emailID);

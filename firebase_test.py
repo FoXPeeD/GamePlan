@@ -210,7 +210,7 @@ def main(argv):
     print ('finding knn for each user...')
     for userId,avgPost in usersAvgData.items():
         recommendPath = 'users/' + userId + '/recommended'
-        firebase.delete(recommendPath,None)
+        # firebase.delete(recommendPath,None)
 
         recommendedPosts = {}
         nearest = neigh.kneighbors([avgPost], NUM_OF_KNEIGHBORS, return_distance=False)
