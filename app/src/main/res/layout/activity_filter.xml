@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/weak_main_background"
+    android:tileMode="repeat"
+    tools:context=".createPost">
+
+    <Spinner
+        android:id="@+id/citySpinnerFilter"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinnerFilter"
+        app:layout_constraintTop_toTopOf="@+id/textCity" />
+
+    <TextView
+        android:id="@+id/textCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="City"
+        android:textColor="@color/blackish"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/textCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textToDate" />
+
+    <TextView
+        android:id="@+id/textCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Category"
+        android:textColor="@color/blackish"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/categorySpinnerFilter"
+        android:layout_width="192dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/textCategory"
+        app:layout_constraintTop_toTopOf="@+id/textCategory" />
+
+    <TextView
+        android:id="@+id/textGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Game"
+        android:textColor="@color/blackish"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/textCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textCategory" />
+
+    <Spinner
+        android:id="@+id/gameSpinnerFilter"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinnerFilter"
+        app:layout_constraintTop_toTopOf="@+id/textGame" />
+
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="From"
+        android:textColor="@color/blackish"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/textCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textGame" />
+
+    <TextView
+        android:id="@+id/textToDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="To"
+        android:textColor="@color/blackish"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/textCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textDate" />
+
+    <Spinner
+        android:id="@+id/fromMonthSpinnerFilter"
+        android:layout_width="107dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/fromDaySpinnerFilter"
+        app:layout_constraintTop_toTopOf="@+id/fromDaySpinnerFilter" />
+
+    <Spinner
+        android:id="@+id/fromYearSpinnerFilter"
+        android:layout_width="119dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/fromMonthSpinnerFilter"
+        app:layout_constraintTop_toTopOf="@+id/fromMonthSpinnerFilter" />
+
+    <Spinner
+        android:id="@+id/fromDaySpinnerFilter"
+        android:layout_width="88dp"
+        android:layout_height="23dp"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinnerFilter"
+        app:layout_constraintTop_toTopOf="@+id/textDate" />
+
+    <Spinner
+        android:id="@+id/toMonthSpinnerFilter"
+        android:layout_width="107dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/fromDaySpinnerFilter"
+        app:layout_constraintTop_toTopOf="@+id/toDaySpinnerFilter" />
+
+    <Spinner
+        android:id="@+id/toYearSpinnerFilter"
+        android:layout_width="119dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/toMonthSpinnerFilter"
+        app:layout_constraintTop_toTopOf="@+id/toMonthSpinnerFilter" />
+
+    <Spinner
+        android:id="@+id/toDaySpinnerFilter"
+        android:layout_width="88dp"
+        android:layout_height="23dp"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinnerFilter"
+        app:layout_constraintTop_toTopOf="@+id/textToDate" />
+
+    <Button
+        android:id="@+id/filterButton"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/custom_button"
+        android:text="apply filter"
+        android:textColor="@color/action_bar_icons"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/citySpinnerFilter" />
+
+</android.support.constraint.ConstraintLayout>

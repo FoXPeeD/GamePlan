@@ -107,7 +107,7 @@ def main(argv):
     if WORK_OFFLINE_DATA:
         usersPath = 'offlineUsers'
     users = firebase.get(usersPath, None)
-    print ('got users')
+    print ('found ' + str(len(users)) + ' users')
     usersRawData = {}
     usersAvgData = {}
     for userId,userData in users.items():

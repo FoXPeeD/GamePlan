@@ -42,6 +42,8 @@ public class PostsActivity extends AppCompatActivity {
     PostFilter dummyFilter;
 
     TextView loadingText;
+    MenuItem filterActionButton;
+    int FILTER_REQ = 1;
 
     String userId;
 
@@ -211,6 +213,7 @@ public class PostsActivity extends AppCompatActivity {
         }
     }
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -219,22 +222,27 @@ public class PostsActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_all:
                     currentTab = R.id.navigation_all;
+                    invalidateOptionsMenu();
                     loadPostsAll(dummyFilter);
                     return true;
                 case R.id.navigation_attending:
                     currentTab = R.id.navigation_attending;
+                    invalidateOptionsMenu();
                     loadPostsAttending(dummyFilter);
                     return true;
                 case R.id.navigation_created:
                     currentTab = R.id.navigation_created;
+                    invalidateOptionsMenu();
                     loadPostsCreated(dummyFilter);
                     return true;
                 case R.id.navigation_history:
                     currentTab = R.id.navigation_history;
+                    invalidateOptionsMenu();
                     loadPostsHistory(dummyFilter);
                     return true;
                 case R.id.navigation_recommended:
                     currentTab = R.id.navigation_recommended;
+                    invalidateOptionsMenu();
                     loadPostsRecommended(dummyFilter);
                     return true;
                 default:
@@ -267,6 +275,8 @@ public class PostsActivity extends AppCompatActivity {
 
 
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        filterActionButton = findViewById(R.id.action_filter);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -316,7 +326,19 @@ public class PostsActivity extends AppCompatActivity {
         loadPostsCurrentTab(dummyFilter);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FILTER_REQ) {
+            if (resultCode == RESULT_OK) {
+                Bundle bundle = data.getExtras();
+                PostFilter filter =
+                        (PostFilter)bundle.getSerializable("filter");
+                loadPostsAll(filter);
+                return;
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -330,14 +352,21 @@ public class PostsActivity extends AppCompatActivity {
                 drawable.setColorFilter(getResources().getColor(R.color.action_bar_icons), PorterDuff.Mode.SRC_ATOP);
             }
         }
+        if(currentTab == R.id.navigation_all){
+            menu.findItem(R.id.action_filter).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_filter).setVisible(false);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.action_filter://
-//                return true;
+            case R.id.action_filter:
+                Intent intent = new Intent(PostsActivity.this,filterActivity.class);
+                startActivityForResult(intent,FILTER_REQ);
+                return true;
 
             case R.id.action_reload:
                 loadPostsCurrentTab(dummyFilter);

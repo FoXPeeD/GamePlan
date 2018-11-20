@@ -2,17 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_reload"
-        android:icon="@drawable/ic_baseline_refresh_24px"
+    <item android:id="@+id/action_filter"
+        android:icon="@drawable/ic_outline_filter_list_24px"
         app:showAsAction="ifRoom"
         android:title="Filter" />
 
 
-    <!--<item android:id="@+id/action_filter"-->
-        <!--android:icon="@drawable/ic_outline_filter_list_24px"-->
-        <!--app:showAsAction="ifRoom"-->
-        <!--android:title="Filter" />-->
-
-
+    <item android:id="@+id/action_reload"
+        android:icon="@drawable/ic_baseline_refresh_24px"
+        app:showAsAction="ifRoom"
+        android:title="Filter" />
 
 </menu>

@@ -21,7 +21,8 @@
             android:label="@string/title_activity_posts" />
         <activity android:name=".createPost" />
         <activity android:name=".registerActivity" />
-        <activity android:name=".ViewPost"></activity>
+        <activity android:name=".ViewPost" />
+        <activity android:name=".filterActivity"></activity>
     </application>
 
 </manifest>

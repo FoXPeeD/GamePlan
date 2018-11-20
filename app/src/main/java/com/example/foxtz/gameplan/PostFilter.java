@@ -3,7 +3,9 @@ package com.example.foxtz.gameplan;
 
 import org.joda.time.DateTime;
 
-public class PostFilter implements java.lang.Cloneable{
+import java.io.Serializable;
+
+public class PostFilter implements java.lang.Cloneable, Serializable {
 
     final int MIN_MINUTES = 0;
     final int MAX_MINUTES = 45;
@@ -67,6 +69,14 @@ public class PostFilter implements java.lang.Cloneable{
         this.toYear = future.getYear();
         this.toMonth = future.getMonthOfYear();
         this.toDay = future.getDayOfMonth();
+    }
+
+    public void setEndDateLaterThanStartSetByMonths(int months){
+        DateTime start = new org.joda.time.DateTime(fromYear,fromMonth,fromDay,1,1,1,1);
+        DateTime end = start.plusMonths(months);
+        this.toYear = end.getYear();
+        this.toMonth = end.getMonthOfYear();
+        this.toDay = end.getDayOfMonth();
     }
 
     public void setTimeAsAllDay(){
