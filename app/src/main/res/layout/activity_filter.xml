@@ -134,12 +134,12 @@
 
     <Button
         android:id="@+id/filterButton"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="22dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/custom_button"
-        android:text="apply choice"
+        android:text="apply"
         android:textColor="@color/action_bar_icons"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
