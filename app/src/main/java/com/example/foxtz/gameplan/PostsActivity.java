@@ -317,13 +317,13 @@ public class PostsActivity extends AppCompatActivity {
         dummyFilter.setEndDateLaterThanNowByMonths(3);
         dummyFilter.setTimeAsAllDay();
 
+        loadPostsCurrentTab(dummyFilter);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         getSupportActionBar().setTitle("Posts");
-        loadPostsCurrentTab(dummyFilter);
     }
 
     @Override

@@ -20,6 +20,18 @@ import org.joda.time.DateTime;
 
 public class filterActivity extends AppCompatActivity {
 
+    public int monthToInt(String month){
+        StringsClass strings = new StringsClass();
+        String monthsList[] = strings.getMonths();
+        int monthInt = 0;
+        for (int i = 0; i < monthsList.length; i++){
+            if(monthsList[i].equals(month)){
+                monthInt = i+1;
+            }
+        }
+        return monthInt;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -232,37 +244,31 @@ public class filterActivity extends AppCompatActivity {
                 int thisYear = today.getYear();
                 int thisMonth = today.getMonthOfYear();
                 int thisDay = today.getDayOfMonth();
-                StringsClass strings = new StringsClass();
-                String monthsList[] = strings.getMonths();
-                int monthInt = 0;
-                for (int i = 0; i < monthsList.length; i++){
-                    if(monthsList[i].equals(fromMonth)){
-                        monthInt = i+1;
-                    }
-                }
+
+                int monthInt = monthToInt(fromMonth);
                 if((thisYear >= Integer.valueOf(fromYear)) && (thisMonth >= monthInt) && (thisDay > Integer.valueOf(fromDay))){
                     Toast.makeText(filterActivity.this, "Start date is too early",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-                DateTime start = new DateTime(Integer.valueOf(fromYear),Integer.valueOf(fromMonth),Integer.valueOf(fromDay),1,1, 1, 1);
-                DateTime end = new DateTime(Integer.valueOf(toYear),Integer.valueOf(toMonth),Integer.valueOf(toDay),1,1, 1, 1);
+                DateTime start = new DateTime(Integer.valueOf(fromYear),monthToInt(fromMonth),Integer.valueOf(fromDay),1,1, 1, 1);
+                DateTime end = new DateTime(Integer.valueOf(toYear),monthToInt(toMonth),Integer.valueOf(toDay),1,1, 1, 1);
                 if(start.isAfter(end)){
                     Toast.makeText(filterActivity.this, "End date is before start date",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                Toast.makeText(filterActivity.this, "changeMe", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 PostFilter filter = new PostFilter();
                 filter.setFilterFull();
-                filter.setDateAsStart(Integer.valueOf(fromYear),Integer.valueOf(fromMonth),Integer.valueOf(fromDay));
-                filter.setDateAsEnd(Integer.valueOf(toYear),Integer.valueOf(toMonth),Integer.valueOf(toDay));
+                filter.setDateAsStart(Integer.valueOf(fromYear),monthToInt(fromMonth),Integer.valueOf(fromDay));
+                filter.setDateAsEnd(Integer.valueOf(toYear),monthToInt(toMonth),Integer.valueOf(toDay));
                 filter.setGameFilter(category,game);
                 filter.setCityFilter(city);
                 intent.putExtra("filter",filter);
                 setResult(Activity.RESULT_OK,intent);
+                finish();
 
             }
         });

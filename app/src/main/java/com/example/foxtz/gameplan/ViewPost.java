@@ -90,6 +90,8 @@ public class ViewPost extends AppCompatActivity {
                         playersText.setText(currentPlayers + " out of " + desiredNumPlayers);
                         joinButton.setBackground(getDrawable(R.drawable.custom_button_pressed));
                         joinButton.setTextColor(getResources().getColor(R.color.pressedGrey));
+                        Toast.makeText(ViewPost.this, "Joined!", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
 
                     @Override
