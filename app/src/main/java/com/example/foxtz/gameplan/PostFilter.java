@@ -44,12 +44,12 @@ public class PostFilter implements java.lang.Cloneable, Serializable {
         this.toMonth = getCurrMonth();
         this.toYear = getCurrYear();
     }
-    public void setDateAsStart(int day, int month, int year){
+    public void setDateAsStart(int year, int month, int day){
         this.fromDay = day;
         this.fromMonth = month;
         this.fromYear = year;
     }
-    public void setDateAsEnd(int day, int month, int year){
+    public void setDateAsEnd(int year, int month, int day){
         this.toDay = day;
         this.toMonth = month;
         this.toYear = year;
@@ -125,6 +125,18 @@ public class PostFilter implements java.lang.Cloneable, Serializable {
         DateTime now = new org.joda.time.DateTime();
         return now.getYear();
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getGame() {
+        return game;
+    }
+
+    public String getCity() {
+        return city;
+    }
     int fromYear, fromMonth, fromDay;
     int toYear, toMonth, toDay;
     int fromHour, fromMinutes;
@@ -133,6 +145,7 @@ public class PostFilter implements java.lang.Cloneable, Serializable {
     boolean filterCategory;
     boolean filterGame;
     boolean filterCity;
+
     String category;
     String game;
     String city;

@@ -112,15 +112,15 @@ public class PostsActivity extends AppCompatActivity {
                                             continue;
                                         }
                                         if(filter.filterCategory &&
-                                                (!postMap.get("category").toString().equals(filter.category))){
+                                                (!postMap.get("category").toString().equals(filter.getCategory()))){
                                             continue;
                                         }
                                         if(filter.filterGame &&
-                                                (!postMap.get("game").toString().equals(filter.game))){
+                                                (!postMap.get("game").toString().equals(filter.getGame()))){
                                             continue;
                                         }
                                         if(filter.filterCity &&
-                                                (!postMap.get("city").toString().equals(filter.city))){
+                                                (!postMap.get("city").toString().equals(filter.getCity()))){
                                             continue;
                                         }
 
