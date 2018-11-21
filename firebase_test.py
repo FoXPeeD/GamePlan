@@ -1,12 +1,16 @@
+from __future__ import print_function
+import socket
 import sys
 import datetime
 import calendar
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 
-WORK_OFFLINE_DATA = True
 
+WORK_OFFLINE_DATA = True
+ALGORITHM = 'kd_tree'
 NUM_OF_KNEIGHBORS = 5
+TIMES_TO_RUN = 5
 
 TIME_WEIGHT = 1
 DAY_WEIGHT = 1
@@ -30,6 +34,9 @@ citiesEnum = {v: k for k,v in enumerate(citiesList)}
 categoryList = ['Ball Games', 'Video Games', 'Board Games', 'Workout']
 categoryEnum = {v: k for k,v in enumerate(categoryList)}
 gamesByCategoryEnumList = [ballGamesEnum, videoGamesEnum, boardGamesEnum, workoutEnum]
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 def most_common(lst):
     return max(set(lst), key=lst.count)
@@ -76,22 +83,11 @@ def isUserAttending(x,postID, userID, usersRawData):
     else:
         return False
 
-startTime = datetime.datetime.now()
-tempTime = startTime
-def startTimer():
-    startTime = datetime.datetime.now()
-    tempTime = startTime
 
-def timePassed(stepStr = ''):
-    took = datetime.datetime.now() - tempTime
-    print stepStr + ' took ' + str(took) + ' seconds'
+def run(totalNetTime,TotalScriptTime):
 
-def timeTotal():
-    took = datetime.datetime.now() - startTime
-    print 'script took ' + str(took) + ' seconds in total'
+    scriptStartTime = datetime.datetime.now()
 
-def main(argv):
-    startTimer()
 ##import DB from file
     # import json
     # with open("gameplan-1312c-export.json", 'r') as f:
@@ -102,12 +98,20 @@ def main(argv):
     from firebase import firebase
     firebase = firebase.FirebaseApplication('https://gameplan-1312c.firebaseio.com/', None)
 
-    #########agregate users data ########
     usersPath = 'users'
     if WORK_OFFLINE_DATA:
         usersPath = 'offlineUsers'
     users = firebase.get(usersPath, None)
-    print ('found ' + str(len(users)) + ' users')
+
+    postsPath = 'posts'
+    if WORK_OFFLINE_DATA:
+        postsPath = 'offlinePosts'
+    posts = firebase.get(postsPath, None)
+
+
+
+    #########agregate users data ########
+    # print('found ' + str(len(users)) + ' users')
     usersRawData = {}
     usersAvgData = {}
     for userId,userData in users.items():
@@ -138,17 +142,12 @@ def main(argv):
         usersAvgData[userId].append(most_common(usersRawData[userId]['categoryList']) * CATEGORY_WEIGHT)
         usersAvgData[userId].append(most_common(usersRawData[userId]['gameList']) * GAME_WEIGHT)
         usersAvgData[userId].append(most_common(usersRawData[userId]['cityList']) * CITY_WEIGHT)
-    # print ('finished processing users')
-    timePassed('processing users')
-
 
 
     #########collect posts data ########
-    postsPath = 'posts'
-    if WORK_OFFLINE_DATA:
-        postsPath = 'offlinePosts'
-    posts = firebase.get(postsPath, None)
-    print ('got posts')
+    netStartTime = datetime.datetime.now()
+    numPostsProcessed = 0
+
     postsInfoList = []
     postsArray = []
 
@@ -157,9 +156,7 @@ def main(argv):
     tYear = tomorrow.year
     tMonth = tomorrow.month
     tDay = tomorrow.day
-    # print(tYear)
-    # print(calendar.month_abbr[tMonth])
-    # print(tDay)
+
 
     for yearKey,yearData in posts.items():
         for monthKey,monthData in yearData.items():
@@ -170,11 +167,10 @@ def main(argv):
                     for postKey,postData in timeData.items():
                         if(postData['desiredNumPlayers'] == postData['currentNumPlayers']):
                             continue
-                        # print (postKey)
+                        numPostsProcessed = numPostsProcessed + 1
                         postsInfoList.append({'postId':postKey,
                                               'category':postData['category'],
                                               'game':postData['game'],
-                                              # 'dateTime':yearKey + '/' + monthKey + '/' + dayKey + '/' + time,
                                               'year':yearKey,
                                               'month':monthKey,
                                               'day':dayKey,
@@ -185,7 +181,6 @@ def main(argv):
                                               'currentNumPlayers':postData['currentNumPlayers'],
                                               'user_name':postData['user_name'],
                                               'userID':postData['userID']})
-                        #print (year + '/' + month + '/' + day + '/' + time)
                         categoryNum = categoryToValue(postData['category'])
                         postsArray.append([dayOfWeekToValue(yearKey,monthKey,dayKey),
                                               timeToValue(time),
@@ -194,20 +189,13 @@ def main(argv):
                                               categoryNum,
                                               gameToValue(postData['game'],categoryNum),
                                               cityToValue(postData['city'])])
-                        # print(postsInfoList)
 
-    # print (postsArray)
-    # print ('finished processing posts')
-    timePassed('processing posts')
+
 
     ########calculate Nearest Neighbors###########
-    neigh = NearestNeighbors(algorithm='auto', metric='minkowski')
-    print ('training...')
+    neigh = NearestNeighbors(algorithm=ALGORITHM, metric='minkowski')
     neigh.fit(postsArray)
-    timePassed('training')
 
-
-    print ('finding knn for each user...')
     for userId,avgPost in usersAvgData.items():
         recommendPath = 'users/' + userId + '/recommended'
         # firebase.delete(recommendPath,None)
@@ -245,25 +233,40 @@ def main(argv):
                 'user_name':post['user_name'],
                 'userID':post['userID']}
 
-        # print recommendedPosts
+        # send recommendedPosts
         if WORK_OFFLINE_DATA:
             users[userId]['recommended'] = recommendedPosts
         else:
             firebase.put(usersPath + '/' + userId,'recommended',recommendedPosts)
 
-
-    timePassed('finding nearest neighbors')
+    netEndTime = datetime.datetime.now()
 
     if WORK_OFFLINE_DATA:
-        firebase.put('/',usersPath,users)
+        try:
+            firebase.put('/',usersPath,users)
+        except (socket.error), e:
+            eprint('<class "socket.error">: [Errno 10053] An established connection was aborted by the software in your host machine)')
+            eprint('trying again')
+            firebase.put('/',usersPath,users)
 
-    timePassed('writing to DB')
-    timeTotal()
+    scriptEndTime = datetime.datetime.now()
 
-    # print ('done!')
+
+    print('all: ' + str(scriptEndTime - scriptStartTime) + ', net: ' + str(netEndTime - netStartTime))
+    TotalScriptTime = TotalScriptTime + scriptEndTime - scriptStartTime
+    totalNetTime = totalNetTime + netEndTime - netStartTime
+
+def main(argv):
+
+    print('number of recommendations: ' + str(NUM_OF_KNEIGHBORS))
+    totalNetTime = datetime.datetime.now() - datetime.datetime.now()
+    TotalScriptTime = datetime.datetime.now() - datetime.datetime.now()
+    for i in range(TIMES_TO_RUN):
+        run(totalNetTime,TotalScriptTime)
+    print('Average script time: ' + str(TotalScriptTime/TIMES_TO_RUN) + ', Average net time: ' + str(totalNetTime/TIMES_TO_RUN))
 
 if __name__ == '__main__':
-	main(sys.argv)
+    main(sys.argv)
 
 
 

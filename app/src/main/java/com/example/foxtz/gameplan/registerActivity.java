@@ -58,8 +58,6 @@ public class registerActivity extends AppCompatActivity {
                 "Qiryat-shemona"
         };
 
-        //TODO: use resource instead of array
-
         final List<String> citiesList = new ArrayList<>(Arrays.asList(cities));
 
         // Initializing an ArrayAdapter

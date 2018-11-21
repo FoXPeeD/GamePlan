@@ -14,7 +14,7 @@ public class PostFilter implements java.lang.Cloneable, Serializable {
 
 
 
-    public PostFilter(){//TODO: create real c'tor
+    public PostFilter(){
         this.fromYear = 2018;
         this.fromMonth = 1;//valid values are 1 to 12
         this.fromDay = 1;

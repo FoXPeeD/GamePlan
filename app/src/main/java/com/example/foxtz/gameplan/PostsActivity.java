@@ -311,7 +311,6 @@ public class PostsActivity extends AppCompatActivity {
             }
         }));
 
-        //TODO: change dummy filter
         dummyFilter = new PostFilter();
         dummyFilter.setCurrentDateAsStart();
         dummyFilter.setEndDateLaterThanNowByMonths(3);

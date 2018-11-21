@@ -4,7 +4,7 @@ import calendar
 import datetime
 
 
-NUM_USERS_TO_CREATE = 10000
+NUM_USERS_TO_CREATE = 10
 NUM_POSTS_PER_USER = 5
 
 WORK_OFFLINE_DATA = True
