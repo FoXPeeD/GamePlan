@@ -4,7 +4,7 @@ import calendar
 import datetime
 
 
-NUM_USERS_TO_CREATE = 10
+NUM_USERS_TO_CREATE = 10000
 NUM_POSTS_PER_USER = 5
 
 WORK_OFFLINE_DATA = True
@@ -111,14 +111,6 @@ def main(argv):
             timeStr = timeValueToString(time)
 
             createMidDicts(year,monthStr,day,timeStr,created)
-            # if year     not in created:
-            #     created[year] = {}
-            # if monthStr not in created[year]:
-            #     created[year][monthStr] = {}
-            # if day      not in created[year][monthStr]:
-            #     created[year][monthStr][day] = {}
-            # if timeStr  not in created[year][monthStr][day]:
-            #     created[year][monthStr][day][timeStr] = {}
             postKey = getPostKey(nickname,numPost)
             created[year][monthStr][day][timeStr][postKey] = {}
             post = created[year][monthStr][day][timeStr][postKey]

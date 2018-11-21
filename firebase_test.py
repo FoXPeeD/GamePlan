@@ -84,7 +84,21 @@ def isUserAttending(x,postID, userID, usersRawData):
         return False
 
 
-def run(totalNetTime,TotalScriptTime):
+def createMidDicts(year,monthStr,day,timeStr,dict):
+    if year     not in dict:
+        dict[year] = {}
+    if monthStr not in dict[year]:
+        dict[year][monthStr] = {}
+    if day      not in dict[year][monthStr]:
+        dict[year][monthStr][day] = {}
+    if timeStr  not in dict[year][monthStr][day]:
+        dict[year][monthStr][day][timeStr] = {}
+
+
+totalNetTime = 0
+TotalScriptTime = 0
+
+def run(totalNetTime,TotalScriptTime,firebase):
 
     scriptStartTime = datetime.datetime.now()
 
@@ -95,8 +109,6 @@ def run(totalNetTime,TotalScriptTime):
     # users = firebase["users"]
 
 ##import DB from firebase
-    from firebase import firebase
-    firebase = firebase.FirebaseApplication('https://gameplan-1312c.firebaseio.com/', None)
 
     usersPath = 'users'
     if WORK_OFFLINE_DATA:
@@ -109,7 +121,7 @@ def run(totalNetTime,TotalScriptTime):
     posts = firebase.get(postsPath, None)
 
 
-
+    netStartTime = datetime.datetime.now()
     #########agregate users data ########
     # print('found ' + str(len(users)) + ' users')
     usersRawData = {}
@@ -145,7 +157,6 @@ def run(totalNetTime,TotalScriptTime):
 
 
     #########collect posts data ########
-    netStartTime = datetime.datetime.now()
     numPostsProcessed = 0
 
     postsInfoList = []
@@ -156,7 +167,6 @@ def run(totalNetTime,TotalScriptTime):
     tYear = tomorrow.year
     tMonth = tomorrow.month
     tDay = tomorrow.day
-
 
     for yearKey,yearData in posts.items():
         for monthKey,monthData in yearData.items():
@@ -214,14 +224,15 @@ def run(totalNetTime,TotalScriptTime):
                 continue
 
             post = postsInfoList[index]
-            if post['year']     not in recommendedPosts:
-                recommendedPosts[post['year']] = {}
-            if post['month']    not in recommendedPosts[post['year']]:
-                recommendedPosts[post['year']][post['month']] = {}
-            if post['day']      not in recommendedPosts[post['year']][post['month']]:
-                recommendedPosts[post['year']][post['month']][post['day']] = {}
-            if post['time']     not in recommendedPosts[post['year']][post['month']][post['day']]:
-                recommendedPosts[post['year']][post['month']][post['day']][post['time']] = {}
+            createMidDicts(post['year'],post['month'],post['day'],post['time'],recommendedPosts)
+            # if post['year']     not in recommendedPosts:
+            #     recommendedPosts[post['year']] = {}
+            # if post['month']    not in recommendedPosts[post['year']]:
+            #     recommendedPosts[post['year']][post['month']] = {}
+            # if post['day']      not in recommendedPosts[post['year']][post['month']]:
+            #     recommendedPosts[post['year']][post['month']][post['day']] = {}
+            # if post['time']     not in recommendedPosts[post['year']][post['month']][post['day']]:
+            #     recommendedPosts[post['year']][post['month']][post['day']][post['time']] = {}
 
             recommendedPosts[post['year']][post['month']][post['day']][post['time']][post['postId']] = {
                 'category':post['category'],
@@ -252,18 +263,25 @@ def run(totalNetTime,TotalScriptTime):
     scriptEndTime = datetime.datetime.now()
 
 
+    # deltaScript = (scriptEndTime - scriptStartTime).microseconds
+    # deltaNet = (netEndTime - netStartTime).microseconds
+    # print('all: ' + str(deltaScript/1000) + ', net: ' + str(deltaNet/1000))
     print('all: ' + str(scriptEndTime - scriptStartTime) + ', net: ' + str(netEndTime - netStartTime))
-    TotalScriptTime = TotalScriptTime + scriptEndTime - scriptStartTime
-    totalNetTime = totalNetTime + netEndTime - netStartTime
+    # TotalScriptTime = TotalScriptTime + deltaScript
+    # totalNetTime = totalNetTime + deltaNet
 
 def main(argv):
 
-    print('number of recommendations: ' + str(NUM_OF_KNEIGHBORS))
-    totalNetTime = datetime.datetime.now() - datetime.datetime.now()
-    TotalScriptTime = datetime.datetime.now() - datetime.datetime.now()
-    for i in range(TIMES_TO_RUN):
-        run(totalNetTime,TotalScriptTime)
-    print('Average script time: ' + str(TotalScriptTime/TIMES_TO_RUN) + ', Average net time: ' + str(totalNetTime/TIMES_TO_RUN))
+    from firebase import firebase
+    firebase = firebase.FirebaseApplication('https://gameplan-1312c.firebaseio.com/', None)
+
+    for num_rec in [2,4,6,8,10]:
+        print('number of recommendations: ' + str(num_rec))
+        totalNetTime = 0
+        TotalScriptTime = 0
+        for i in range(TIMES_TO_RUN):
+            run(totalNetTime,TotalScriptTime,firebase)
+        # print('Average script time: ' + str((TotalScriptTime/TIMES_TO_RUN)/1000) + ', Average net time: ' + str((totalNetTime/TIMES_TO_RUN)/1000))
 
 if __name__ == '__main__':
     main(sys.argv)
