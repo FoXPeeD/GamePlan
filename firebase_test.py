@@ -9,8 +9,8 @@ from sklearn.neighbors import NearestNeighbors
 
 WORK_OFFLINE_DATA = True
 ALGORITHM = 'kd_tree'
-NUM_OF_KNEIGHBORS = 5
-TIMES_TO_RUN = 5
+# NUM_OF_KNEIGHBORS = 5
+TIMES_TO_RUN = 4
 
 TIME_WEIGHT = 1
 DAY_WEIGHT = 1
@@ -98,8 +98,7 @@ def createMidDicts(year,monthStr,day,timeStr,dict):
 totalNetTime = 0
 TotalScriptTime = 0
 
-def run(totalNetTime,TotalScriptTime,firebase):
-
+def run(totalNetTime,TotalScriptTime,firebase,NUM_OF_KNEIGHBORS):
     scriptStartTime = datetime.datetime.now()
 
 ##import DB from file
@@ -110,6 +109,7 @@ def run(totalNetTime,TotalScriptTime,firebase):
 
 ##import DB from firebase
 
+    # get data from DB
     usersPath = 'users'
     if WORK_OFFLINE_DATA:
         usersPath = 'offlineUsers'
@@ -123,7 +123,6 @@ def run(totalNetTime,TotalScriptTime,firebase):
 
     netStartTime = datetime.datetime.now()
     #########agregate users data ########
-    # print('found ' + str(len(users)) + ' users')
     usersRawData = {}
     usersAvgData = {}
     for userId,userData in users.items():
@@ -146,6 +145,7 @@ def run(totalNetTime,TotalScriptTime,firebase):
                         for postKey,postData in timeData.items():
                             AddPostToHistogram(usersRawData,year,month,day,time,postData,userId,postKey)
 
+        # calculate representing post
         usersAvgData[userId] = []
         usersAvgData[userId].append(most_common(usersRawData[userId]['dayOfWeekList']) * DAY_WEIGHT)
         usersAvgData[userId].append(avarage(usersRawData[userId]['timeList']) * TIME_WEIGHT)
@@ -157,27 +157,21 @@ def run(totalNetTime,TotalScriptTime,firebase):
 
 
     #########collect posts data ########
-    numPostsProcessed = 0
-
     postsInfoList = []
     postsArray = []
 
-    now = datetime.datetime.now()
     tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
-    tYear = tomorrow.year
-    tMonth = tomorrow.month
-    tDay = tomorrow.day
-
     for yearKey,yearData in posts.items():
         for monthKey,monthData in yearData.items():
             for dayKey,dayData in monthData.items():
-                if (datetime.datetime(year=int(yearKey),month=int(monthEnum[monthKey]), day=int(dayKey)) < tomorrow):
+                if (datetime.datetime(year=int(yearKey),
+                                      month=int(monthEnum[monthKey]),
+                                      day=int(dayKey)) < tomorrow):
                     continue
                 for time,timeData in dayData.items():
                     for postKey,postData in timeData.items():
                         if(postData['desiredNumPlayers'] == postData['currentNumPlayers']):
                             continue
-                        numPostsProcessed = numPostsProcessed + 1
                         postsInfoList.append({'postId':postKey,
                                               'category':postData['category'],
                                               'game':postData['game'],
@@ -207,33 +201,19 @@ def run(totalNetTime,TotalScriptTime,firebase):
     neigh.fit(postsArray)
 
     for userId,avgPost in usersAvgData.items():
-        recommendPath = 'users/' + userId + '/recommended'
-        # firebase.delete(recommendPath,None)
-
         recommendedPosts = {}
         nearest = neigh.kneighbors([avgPost], NUM_OF_KNEIGHBORS, return_distance=False)
-        # print('for user ' + str(userId) + ': ' + str(nearest))
         indexes = []
         for index in nearest[0]:
             indexes.append(int(index))
-        #
-        #remove posts user is already attending
 
+        #remove posts user is already attending
         for index in indexes:
             if isUserAttending(index,postsInfoList[index]['postId'],userId,usersRawData):
                 continue
 
             post = postsInfoList[index]
             createMidDicts(post['year'],post['month'],post['day'],post['time'],recommendedPosts)
-            # if post['year']     not in recommendedPosts:
-            #     recommendedPosts[post['year']] = {}
-            # if post['month']    not in recommendedPosts[post['year']]:
-            #     recommendedPosts[post['year']][post['month']] = {}
-            # if post['day']      not in recommendedPosts[post['year']][post['month']]:
-            #     recommendedPosts[post['year']][post['month']][post['day']] = {}
-            # if post['time']     not in recommendedPosts[post['year']][post['month']][post['day']]:
-            #     recommendedPosts[post['year']][post['month']][post['day']][post['time']] = {}
-
             recommendedPosts[post['year']][post['month']][post['day']][post['time']][post['postId']] = {
                 'category':post['category'],
                 'game':post['game'],
@@ -244,7 +224,7 @@ def run(totalNetTime,TotalScriptTime,firebase):
                 'user_name':post['user_name'],
                 'userID':post['userID']}
 
-        # send recommendedPosts
+        # send or store recommendedPosts
         if WORK_OFFLINE_DATA:
             users[userId]['recommended'] = recommendedPosts
         else:
@@ -256,32 +236,28 @@ def run(totalNetTime,TotalScriptTime,firebase):
         try:
             firebase.put('/',usersPath,users)
         except (socket.error), e:
+            # trying again
             eprint('<class "socket.error">: [Errno 10053] An established connection was aborted by the software in your host machine)')
-            eprint('trying again')
             firebase.put('/',usersPath,users)
 
+    # print results
     scriptEndTime = datetime.datetime.now()
-
-
-    # deltaScript = (scriptEndTime - scriptStartTime).microseconds
-    # deltaNet = (netEndTime - netStartTime).microseconds
-    # print('all: ' + str(deltaScript/1000) + ', net: ' + str(deltaNet/1000))
     print('all: ' + str(scriptEndTime - scriptStartTime) + ', net: ' + str(netEndTime - netStartTime))
-    # TotalScriptTime = TotalScriptTime + deltaScript
-    # totalNetTime = totalNetTime + deltaNet
+
+
 
 def main(argv):
 
     from firebase import firebase
-    firebase = firebase.FirebaseApplication('https://gameplan-1312c.firebaseio.com/', None)
-
-    for num_rec in [2,4,6,8,10]:
+    # firebase = firebase.FirebaseApplication('https://gameplan-1312c.firebaseio.com/', None)
+    firebase = firebase.FirebaseApplication('https://gameplan-offline.firebaseio.com/', None)
+    for num_rec in [1,3,7,10]:
         print('number of recommendations: ' + str(num_rec))
+        NUM_OF_KNEIGHBORS = num_rec
         totalNetTime = 0
         TotalScriptTime = 0
         for i in range(TIMES_TO_RUN):
-            run(totalNetTime,TotalScriptTime,firebase)
-        # print('Average script time: ' + str((TotalScriptTime/TIMES_TO_RUN)/1000) + ', Average net time: ' + str((totalNetTime/TIMES_TO_RUN)/1000))
+            run(totalNetTime,TotalScriptTime,firebase,NUM_OF_KNEIGHBORS)
 
 if __name__ == '__main__':
     main(sys.argv)

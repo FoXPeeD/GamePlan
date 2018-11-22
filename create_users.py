@@ -82,7 +82,8 @@ def timeTotal():
 def main(argv):
     startTimer()
     from firebase import firebase
-    firebase = firebase.FirebaseApplication('https://gameplan-1312c.firebaseio.com/', None)
+    # firebase = firebase.FirebaseApplication('https://gameplan-1312c.firebaseio.com/', None)
+    firebase = firebase.FirebaseApplication('https://gameplan-offline.firebaseio.com/', None)
     usersPath = 'users'
     if WORK_OFFLINE_DATA:
         usersPath = 'offlineUsers'
@@ -91,7 +92,6 @@ def main(argv):
     users = {}
     allPosts = {}
     for userNum in range(NUM_USERS_TO_CREATE):
-
         nickname = '{:06d}'.format(userNum)
         users[nickname] = {}
         user = users[nickname]
@@ -99,7 +99,7 @@ def main(argv):
         user['city'] = citiesList[randint(MIN_CITY,MAX_CITY)]
         user['age'] = randint(MIN_AGE,MAX_AGE)
 
-        # create posts
+        # create posts for the user
         user['created'] = {}
         created = user['created']
         for numPost in range(NUM_POSTS_PER_USER):
@@ -110,13 +110,13 @@ def main(argv):
             time = randint(MIN_TIME,MAX_TIME)
             timeStr = timeValueToString(time)
 
+            # get reference to new post
             createMidDicts(year,monthStr,day,timeStr,created)
             postKey = getPostKey(nickname,numPost)
             created[year][monthStr][day][timeStr][postKey] = {}
             post = created[year][monthStr][day][timeStr][postKey]
 
-
-
+            # generate random data for post
             categoryNum = randint(MIN_CATEGORY,MAX_CATEGORY)
             category = categoryList[categoryNum]
             game = gameListByCategory[categoryNum][randint(MIN_GAME,MAX_GAME)]
@@ -124,7 +124,7 @@ def main(argv):
             currentPlayers = randint(MIN_DESIRED_PLAYERS - 1,desiredPlayers - 1)
             description = 'n/a'
 
-
+            # insert data to post
             post['category'] = category
             post['game'] = game
             post['currentNumPlayers'] = currentPlayers
@@ -135,12 +135,13 @@ def main(argv):
             post['user_name'] = user['user_name']
             post['userID'] = user['user_name']
 
-            #copy post to all posts
+            #copy post data to main posts location
             createMidDicts(year,monthStr,day,timeStr,allPosts)
             allPosts[year][monthStr][day][timeStr][postKey] = post
 
-            #copy posts to attending
+        #copy posts to attending
         user['attending'] = user['created']
+
 
     timePassed('creating users and their posts')
 
